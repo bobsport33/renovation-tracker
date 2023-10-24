@@ -13,8 +13,11 @@ export const authOptions: NextAuthOptions = {
                 },
                 password: { label: "Password", type: "password" },
             },
-            async authorize(credientials, req) {
-                const user = JSON.stringify(credientials);
+            async authorize(credentials, req) {
+                // logic to see if user is credentialed. Log them in if they are
+                const user = JSON.stringify(credentials);
+
+                console.log(credentials);
 
                 return user;
             },
