@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 
-import Layout from "@/components/Layout";
+import Layout from "@/components/Layout/Index";
 import GlobalStyles from "@/styles/GlobalStyles";
 
 export default function App({

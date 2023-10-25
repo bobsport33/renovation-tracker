@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 import { colors } from "@/styles/variables";
 import { paragraphLarge, paragraphMedium } from "@/styles/Type";
@@ -61,9 +61,8 @@ const Header = () => {
                     {session && (
                         <button onClick={() => signOut()}>Sign out</button>
                     )}
-                    {!session && (
-                        <button onClick={() => signIn()}>Sign in</button>
-                    )}
+                    {!session && <Link href="/auth">SignUp in</Link>}
+                    {!session && <Link href="/auth">SignUp in</Link>}
                     {session && (
                         <Link className="header__link" href="/projects">
                             Projects
