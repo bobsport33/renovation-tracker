@@ -69,7 +69,9 @@ const AuthForm = () => {
                     enteredFirstName!,
                     enteredLastName!
                 );
-                console.log(user);
+                if (user) {
+                    router.replace("/projects");
+                }
             } catch (err) {
                 console.log(err);
             }

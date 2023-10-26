@@ -1,5 +1,6 @@
 import { hash } from "bcryptjs";
 import axios from "axios";
+import { signIn } from "next-auth/react";
 
 export async function hashPassword(password: string) {
     const hashedPassword = await hash(password, 11);
@@ -25,10 +26,18 @@ export async function createUser(
         },
     });
 
-    const data = await response.json();
+    const data = response.data;
 
-    if (!response.ok) {
+    if (data.message !== "created user") {
         throw new Error(data.message || "something went wrong");
     }
+
+    // Sign in the user after successful account creation
+    await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+    });
+
     return data;
 }

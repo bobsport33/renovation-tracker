@@ -5,25 +5,13 @@ import { compare } from "bcryptjs";
 import { connectToDB } from "../db/db";
 import { StringifyOptions } from "querystring";
 
-interface credentials {
-    email: string;
-    password: StringifyOptions;
-}
-
 export const authOptions: NextAuthOptions = {
-    session: { strategy: "jwt" },
+    // @ts-ignore
+    session: { jwt: true },
     providers: [
         CredentialsProvider({
-            // name: "Sign in with username and password",
-            // credentials: {
-            //     email: {
-            //         label: "Email",
-            //         type: "email",
-            //         placeholder: "email",
-            //     },
-            //     password: { label: "Password", type: "password" },
-            // },
-            async authorize(credentials, req) {
+            // @ts-ignore
+            async authorize(credentials: any, req) {
                 // logic to see if user is credentialed. Log them in if they are
                 const client = await connectToDB();
 
@@ -33,7 +21,7 @@ export const authOptions: NextAuthOptions = {
                 });
 
                 if (!user) {
-                    throw new Error("No user found");
+                    return null;
                 }
 
                 const isValid = await compare(
@@ -49,14 +37,11 @@ export const authOptions: NextAuthOptions = {
                 client.close();
                 // use bcrypt to compare entered password with stored password hash
 
-                return {
-                    email: user.email,
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                };
+                return user;
             },
         }),
     ],
+    // may need to add callbacks to attach data to jwt
 };
 
 export default NextAuth(authOptions);

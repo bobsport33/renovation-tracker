@@ -5,6 +5,8 @@ import Link from "next/link";
 import Modal from "@/subComponents/Modal";
 import { paragraphLarge } from "@/styles/Type";
 import { colors } from "@/styles/variables";
+import { GetSessionParams, getSession } from "next-auth/react";
+import { GetServerSidePropsContext } from "next";
 
 const projects = [
     { id: 1, title: "bathroom" },
@@ -59,3 +61,22 @@ const Projects = () => {
 };
 
 export default Projects;
+
+export const getServerSideProps = async (
+    context: GetServerSidePropsContext
+) => {
+    const session = await getSession(context);
+
+    if (session) {
+        return {
+            props: { session },
+        };
+    } else if (session == null) {
+        return {
+            redirect: {
+                destination: "/auth",
+                permanent: true,
+            },
+        };
+    }
+};
