@@ -1,16 +1,11 @@
 import React from "react";
-import styled from "styled-components";
 import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext } from "next";
 
-const NewProjectCont = styled.div``;
+import ProjectForm from "@/components/projectForm/Index";
 
 const NewProject = () => {
-    return (
-        <NewProjectCont>
-            <h1>new projects</h1>
-        </NewProjectCont>
-    );
+    return <ProjectForm />;
 };
 
 export default NewProject;

@@ -4,7 +4,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import { colors } from "@/styles/variables";
-import Input from "./Input";
+import Input from "@/subComponents/Input";
 import { createUser } from "@/utils/auth";
 
 const AuthFormCont = styled.section`
