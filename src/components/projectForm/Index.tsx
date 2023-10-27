@@ -12,6 +12,8 @@ import Input from "@/subComponents/Input";
 import AddButton from "@/subComponents/AddButton";
 import RemoveButton from "@/subComponents/RemoveButton";
 import { paragraphMedium, paragraphSmall } from "@/styles/Type";
+import DimensionalTable from "./DimensionalTable";
+import NondimensionalTable from "./NondimensionalTable";
 
 interface DimensionalFormValue {
     material: string;
@@ -192,205 +194,30 @@ const ProjectForm = () => {
                         ref={projectName}
                     />
                     <hr />
-                    <p className="project__title">
-                        Dimensional Material Calculator
-                    </p>
-                    <table className="project__grid">
-                        <thead>
-                            <tr>
-                                <th className="project__subtitle">Material</th>
-                                <th className="project__subtitle">
-                                    Dimension 1
-                                </th>
-                                <th className="project__subtitle">
-                                    Dimension 2
-                                </th>
-                                <th className="project__subtitle">Est. SqFt</th>
-                                <th className="project__subtitle">
-                                    Price per SqFt
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {dimensionalFormValues.map((row, rowIndex) => {
-                                return (
-                                    <tr key={rowIndex}>
-                                        <td>
-                                            <input
-                                                type="text"
-                                                value={row.material}
-                                                onChange={(e) =>
-                                                    handleDimensionalInputChangeHandler(
-                                                        e,
-                                                        rowIndex,
-                                                        "material"
-                                                    )
-                                                }
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                type="text"
-                                                value={row.dimension1}
-                                                onChange={(e) =>
-                                                    handleDimensionalInputChangeHandler(
-                                                        e,
-                                                        rowIndex,
-                                                        "dimension1"
-                                                    )
-                                                }
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                type="text"
-                                                value={row.dimension2}
-                                                onChange={(e) =>
-                                                    handleDimensionalInputChangeHandler(
-                                                        e,
-                                                        rowIndex,
-                                                        "dimension2"
-                                                    )
-                                                }
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                type="text"
-                                                value={row.sqft}
-                                                readOnly
-                                                onChange={(e) =>
-                                                    handleDimensionalInputChangeHandler(
-                                                        e,
-                                                        rowIndex,
-                                                        "sqft"
-                                                    )
-                                                }
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                type="text"
-                                                value={row.pricePerSqft}
-                                                onChange={(e) =>
-                                                    handleDimensionalInputChangeHandler(
-                                                        e,
-                                                        rowIndex,
-                                                        "pricePerSqft"
-                                                    )
-                                                }
-                                            />
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                    <div
-                        className="project__btn project__btn--add"
-                        onClick={addDimensionalRowHandler}
-                    >
-                        Add Row <AddButton />
-                    </div>
-                    {dimensionalFormValues.length > 1 && (
-                        <div
-                            className="project__btn project__btn--remove"
-                            onClick={removeDimensionalRowHandler}
-                        >
-                            Remove Row <RemoveButton />
-                        </div>
-                    )}
-                    <hr />
-                    <p className="project__title">
-                        Non Dimensionsal Material Calculator
-                    </p>
-                    <table className="project__grid">
-                        <thead>
-                            <tr>
-                                <th className="project__subtitle">Material</th>
-                                <th className="project__subtitle">Size</th>
-                                <th className="project__subtitle">Quantity</th>
-                                <th className="project__subtitle">
-                                    Price per Unit
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {nondimensionalFormValues.map((row, rowIndex) => {
-                                return (
-                                    <tr key={rowIndex}>
-                                        <td>
-                                            <input
-                                                type="text"
-                                                value={row.material}
-                                                onChange={(e) =>
-                                                    nondimensionalInputChangeHandler(
-                                                        e,
-                                                        rowIndex,
-                                                        "material"
-                                                    )
-                                                }
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                type="text"
-                                                value={row.size}
-                                                onChange={(e) =>
-                                                    nondimensionalInputChangeHandler(
-                                                        e,
-                                                        rowIndex,
-                                                        "size"
-                                                    )
-                                                }
-                                            />
-                                        </td>
 
-                                        <td>
-                                            <input
-                                                type="text"
-                                                value={row.quantity}
-                                                onChange={(e) =>
-                                                    nondimensionalInputChangeHandler(
-                                                        e,
-                                                        rowIndex,
-                                                        "quantity"
-                                                    )
-                                                }
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                type="text"
-                                                value={row.pricePerUnit}
-                                                onChange={(e) =>
-                                                    nondimensionalInputChangeHandler(
-                                                        e,
-                                                        rowIndex,
-                                                        "pricePerUnit"
-                                                    )
-                                                }
-                                            />
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                    <div
-                        className="project__btn project__btn--add"
-                        onClick={addNonDimensionalRowHandler}
-                    >
-                        Add Row <AddButton />
-                    </div>
-                    {nondimensionalFormValues.length > 1 && (
-                        <div
-                            className="project__btn project__btn--remove"
-                            onClick={removeNonDimensionalRowHandler}
-                        >
-                            Remove Row <RemoveButton />
-                        </div>
-                    )}
+                    <DimensionalTable
+                        dimensionalFormValues={dimensionalFormValues}
+                        handleDimensionalInputChangeHandler={
+                            handleDimensionalInputChangeHandler
+                        }
+                        addDimensionalRowHandler={addDimensionalRowHandler}
+                        removeDimensionalRowHandler={
+                            removeDimensionalRowHandler
+                        }
+                    />
+                    <hr />
+                    <NondimensionalTable
+                        nondimensionalFormValues={nondimensionalFormValues}
+                        nondimensionalInputChangeHandler={
+                            nondimensionalInputChangeHandler
+                        }
+                        addNonDimensionalRowHandler={
+                            addNonDimensionalRowHandler
+                        }
+                        removeNonDimensionalRowHandler={
+                            removeNonDimensionalRowHandler
+                        }
+                    />
                     <button>save</button>
                     <p className="project__total">
                         Total Price: ${totalPrice.toFixed(2)}
