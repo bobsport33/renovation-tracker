@@ -62,7 +62,6 @@ const ProjectForm = () => {
         const { value } = e.target;
         setFormValues((prevFormValues) => {
             const updatedFormValues = [...prevFormValues];
-            // Type assertion here to indicate that fieldName is a valid key of FormValue
             (updatedFormValues[rowIndex] as any)[fieldName] = value;
             return updatedFormValues;
         });

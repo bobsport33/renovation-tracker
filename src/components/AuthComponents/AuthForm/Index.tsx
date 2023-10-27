@@ -7,6 +7,10 @@ import { colors } from "@/styles/variables";
 import Input from "@/subComponents/Input";
 import { createUser } from "@/utils/auth";
 
+interface props {
+    state: string;
+}
+
 const AuthFormCont = styled.section`
     margin: 0 auto;
     width: 40%;
@@ -26,8 +30,8 @@ const AuthFormCont = styled.section`
     }
 `;
 
-const AuthForm = () => {
-    const [isLogin, setIsLogin] = useState(true);
+const AuthForm = ({ state }: props) => {
+    const [isLogin, setIsLogin] = useState(state === "signin" ? true : false);
     const router = useRouter();
     const email = useRef() as React.MutableRefObject<HTMLInputElement>;
     const password = useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -36,6 +40,8 @@ const AuthForm = () => {
 
     const switchModeHandler = () => {
         setIsLogin((curr) => !curr);
+        const newState = isLogin ? "signup" : "signin";
+        router.replace(`/auth?state=${newState}`);
     };
 
     const submitHandler = async (e: FormEvent) => {

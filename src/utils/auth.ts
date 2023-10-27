@@ -41,3 +41,6 @@ export async function createUser(
 
     return data;
 }
+
+// add materials
+export async function createProject(projectName: string) {}

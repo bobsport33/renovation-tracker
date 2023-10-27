@@ -14,31 +14,33 @@ const HeaderCont = styled.header`
     left: 0;
     background-color: ${colors.red200};
 
-    .header__container {
-        height: 100%;
-        padding: 30px 50px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
+    .header {
+        &__container {
+            height: 100%;
+            padding: 30px 50px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-    .header__links {
-        display: flex;
-        gap: 30px;
-        align-items: center;
-    }
+        &__links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
 
-    .header__title {
-        ${paragraphLarge}
-    }
+        &__title {
+            ${paragraphLarge}
+        }
 
-    .header__link {
-        ${paragraphMedium}
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 8px;
+        &__link {
+            ${paragraphMedium}
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 8px;
+        }
     }
 `;
 
@@ -61,8 +63,24 @@ const Header = () => {
                     {session && (
                         <button onClick={() => signOut()}>Sign out</button>
                     )}
-                    {!session && <Link href="/auth">SignUp in</Link>}
-                    {!session && <Link href="/auth">SignUp in</Link>}
+                    {!session && (
+                        <Link
+                            className="header__link"
+                            href="/auth"
+                            as="/auth?state=signup"
+                        >
+                            Sign Up
+                        </Link>
+                    )}
+                    {!session && (
+                        <Link
+                            className="header__link"
+                            href="/auth"
+                            as="/auth?state=signin"
+                        >
+                            Sign In
+                        </Link>
+                    )}
                     {session && (
                         <Link className="header__link" href="/projects">
                             Projects
