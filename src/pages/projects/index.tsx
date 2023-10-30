@@ -1,63 +1,18 @@
 import React from "react";
-import styled from "styled-components";
-import Link from "next/link";
 import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext } from "next";
+import axios from "axios";
 
-import Modal from "@/subComponents/Modal";
-import { paragraphLarge } from "@/styles/Type";
-import { colors } from "@/styles/variables";
+import ProjectsList from "@/components/projectsList/Index";
 
-const projects = [
-    { id: 1, title: "bathroom" },
-    { id: 2, title: "kitchen" },
-];
+interface Props {
+    email: string;
+}
 
-const ProjectsCont = styled.div`
-    margin: 120px 0;
-    .projects {
-        width: 60%;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        gap: 20px;
+const Projects = ({ email }: Props) => {
+    // get projects using session email
 
-        &__heading {
-            color: ${colors.neutral1000};
-        }
-        &__link {
-            ${paragraphLarge}
-            color: ${colors.neutral1000};
-            transition: color 0.3s;
-
-            &:hover {
-                cursor: pointer;
-                color: ${colors.blue700};
-            }
-        }
-    }
-`;
-
-const Projects = () => {
-    return (
-        <ProjectsCont>
-            <Modal className="projects">
-                <h1 className="projects__heading">Projects</h1>
-                <ul>
-                    {projects.map((project) => {
-                        return (
-                            <li key={project.id} className="projects__link">
-                                <Link href={`/projects/${project.id}`}>
-                                    {project.title}
-                                </Link>
-                            </li>
-                        );
-                    })}
-                </ul>
-            </Modal>
-        </ProjectsCont>
-    );
+    return <ProjectsList email={email} />;
 };
 
 export default Projects;
@@ -67,9 +22,11 @@ export const getServerSideProps = async (
 ) => {
     const session = await getSession(context);
 
+    const email = session?.user?.email;
+
     if (session) {
         return {
-            props: { session },
+            props: { email: email },
         };
     } else if (session == null) {
         return {

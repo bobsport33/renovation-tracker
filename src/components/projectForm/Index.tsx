@@ -196,6 +196,8 @@ const ProjectForm = ({ email }: Props) => {
 
         const result = await updateUser(email, insertedId);
         console.log(result);
+
+        // send user to page for project they just created
     };
 
     return (
