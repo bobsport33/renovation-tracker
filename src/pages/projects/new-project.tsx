@@ -4,8 +4,12 @@ import { GetServerSidePropsContext } from "next";
 
 import ProjectForm from "@/components/projectForm/Index";
 
-const NewProject = () => {
-    return <ProjectForm />;
+interface Props {
+    email: string;
+}
+
+const NewProject = ({ email }: Props) => {
+    return <ProjectForm email={email} />;
 };
 
 export default NewProject;
@@ -15,9 +19,11 @@ export const getServerSideProps = async (
 ) => {
     const session = await getSession(context);
 
+    const email = session?.user?.email;
+
     if (session) {
         return {
-            props: { session },
+            props: { email: email },
         };
     } else if (session == null) {
         return {

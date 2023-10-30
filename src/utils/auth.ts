@@ -1,6 +1,7 @@
 import { hash } from "bcryptjs";
 import axios from "axios";
 import { signIn } from "next-auth/react";
+import { ObjectId } from "mongodb";
 
 interface DimensionalMaterial {
     material: string;
@@ -82,6 +83,27 @@ export async function createProject(
     const data = response.data;
 
     if (data.message !== "created project") {
+        throw new Error(data.message || "something went wrong");
+    }
+
+    return data;
+}
+
+export async function updateUser(email: string, projectId: ObjectId) {
+    const response = await axios.put("/api/auth/updateUserProjects", {
+        body: JSON.stringify({
+            email,
+            projectId,
+        }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    const data = response.data;
+
+    // error check
+    if (data.message !== "updated user") {
         throw new Error(data.message || "something went wrong");
     }
 

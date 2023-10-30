@@ -16,9 +16,11 @@ const Auth = (props: props) => {
 export default Auth;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const state = context.query.state;
+    let state = context.query.state;
 
-    console.log(state);
+    if (!state) {
+        state = "signin";
+    }
 
     return {
         props: {

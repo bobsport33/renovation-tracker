@@ -8,7 +8,6 @@ import Modal from "@/subComponents/Modal";
 import { paragraphLarge } from "@/styles/Type";
 import { colors } from "@/styles/variables";
 
-
 const projects = [
     { id: 1, title: "bathroom" },
     { id: 2, title: "kitchen" },

@@ -12,7 +12,11 @@ import Input from "@/subComponents/Input";
 import { paragraphMedium, paragraphSmall } from "@/styles/Type";
 import DimensionalTable from "./DimensionalTable";
 import NondimensionalTable from "./NondimensionalTable";
-import { createProject } from "@/utils/auth";
+import { createProject, updateUser } from "@/utils/auth";
+
+interface Props {
+    email: string;
+}
 
 interface DimensionalFormValue {
     material: string;
@@ -51,7 +55,7 @@ const ProjectFormCont = styled.div`
     }
 `;
 
-const ProjectForm = () => {
+const ProjectForm = ({ email }: Props) => {
     const [dimensionalFormValues, setDimensionalFormValues] = useState([
         {
             material: "",
@@ -189,6 +193,9 @@ const ProjectForm = () => {
 
         const { insertedId } = data;
         // Need to add ID to array of project ids on the user
+
+        const result = await updateUser(email, insertedId);
+        console.log(result);
     };
 
     return (
