@@ -4,7 +4,12 @@ import { connectToDB } from "../db/db";
 
 async function handler(req: Request, res: Response) {
     const data = JSON.parse(req.body.body);
-    const { projectName, measurements } = data;
+    const {
+        projectName,
+        DimensionalMaterial,
+        NonDimensionalMaterial,
+        totalPrice,
+    } = data;
 
     // Need to add checks to see if name or measurements are null
 
@@ -14,12 +19,18 @@ async function handler(req: Request, res: Response) {
 
     const result = await db.collection("projects").insertOne({
         projectName: projectName,
-        measurements: measurements,
+        dimensionalMaterial: DimensionalMaterial,
+        nondimensionalMaterial: NonDimensionalMaterial,
+        totalPrice: totalPrice,
     });
 
-    console.log(result);
+    // console.log(result.insertedId);
 
-    res.status(201).json({ message: "created user" });
+    res.status(201).json({
+        message: "created project",
+        insertedId: result.insertedId,
+    });
+
     client.close();
 }
 

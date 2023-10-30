@@ -9,11 +9,10 @@ import styled from "styled-components";
 
 import Modal from "@/subComponents/Modal";
 import Input from "@/subComponents/Input";
-import AddButton from "@/subComponents/AddButton";
-import RemoveButton from "@/subComponents/RemoveButton";
 import { paragraphMedium, paragraphSmall } from "@/styles/Type";
 import DimensionalTable from "./DimensionalTable";
 import NondimensionalTable from "./NondimensionalTable";
+import { createProject } from "@/utils/auth";
 
 interface DimensionalFormValue {
     material: string;
@@ -177,11 +176,19 @@ const ProjectForm = () => {
         });
     };
 
-    const formSubmitHandler = (e: FormEvent) => {
+    const formSubmitHandler = async (e: FormEvent) => {
         e.preventDefault();
-        console.log(dimensionalFormValues);
-        console.log(nondimensionalFormValues);
-        console.log(totalPrice);
+        const name = projectName.current.value;
+
+        const data = await createProject(
+            name,
+            dimensionalFormValues,
+            nondimensionalFormValues,
+            totalPrice
+        );
+
+        const { insertedId } = data;
+        // Need to add ID to array of project ids on the user
     };
 
     return (

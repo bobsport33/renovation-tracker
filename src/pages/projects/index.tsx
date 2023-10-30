@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
+import { getSession } from "next-auth/react";
+import { GetServerSidePropsContext } from "next";
 
 import Modal from "@/subComponents/Modal";
 import { paragraphLarge } from "@/styles/Type";
 import { colors } from "@/styles/variables";
-import { GetSessionParams, getSession } from "next-auth/react";
-import { GetServerSidePropsContext } from "next";
+
 
 const projects = [
     { id: 1, title: "bathroom" },

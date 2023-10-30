@@ -3,7 +3,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 
 import { connectToDB } from "../db/db";
-import { StringifyOptions } from "querystring";
 
 export const authOptions: NextAuthOptions = {
     // @ts-ignore
