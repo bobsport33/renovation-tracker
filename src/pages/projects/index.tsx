@@ -4,15 +4,41 @@ import { GetServerSidePropsContext } from "next";
 import axios from "axios";
 
 import ProjectsList from "@/components/projectsList/Index";
+import { getProjectById } from "@/utils/auth";
 
-interface Props {
-    email: string;
+interface DimensionalMaterial {
+    material: string;
+    dimension1: string;
+    dimension2: string;
+    sqft: string;
+    pricePerSqft: string;
 }
 
-const Projects = ({ email }: Props) => {
-    // get projects using session email
+interface NondimensionalMaterial {
+    material: string;
+    size: string;
+    quantity: string;
+    pricePerUnit: string;
+}
 
-    return <ProjectsList email={email} />;
+interface Project {
+    mesage: string;
+    project: {
+        dimensionalMaterial: DimensionalMaterial[];
+        nondimensionalMaterial: NondimensionalMaterial[];
+        projectName: string;
+        totalPrice: number;
+        _id: string;
+    };
+}
+interface Props {
+    email: string;
+    projects: Project[];
+}
+
+const Projects = ({ email, projects }: Props) => {
+    console.log(projects);
+    return <ProjectsList email={email} projects={projects} />;
 };
 
 export default Projects;
@@ -24,9 +50,29 @@ export const getServerSideProps = async (
 
     const email = session?.user?.email;
 
+    const response = await axios.post(
+        "http://localhost:3000/api/auth/getProjects",
+        {
+            body: JSON.stringify({
+                email,
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+    );
+    const projects = response.data.projects;
+
+    const fullProjects = await Promise.all(
+        projects.map(async (project: string) => {
+            const projectDetails = await getProjectById(project);
+            return projectDetails;
+        })
+    );
+
     if (session) {
         return {
-            props: { email: email },
+            props: { email: email, projects: fullProjects },
         };
     } else if (session == null) {
         return {

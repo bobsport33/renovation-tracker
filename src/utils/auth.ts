@@ -110,20 +110,23 @@ export async function updateUser(email: string, projectId: ObjectId) {
     return data;
 }
 
-export async function getProjects(email: string) {
-    const response = await axios.post("/api/auth/getProjects", {
-        body: JSON.stringify({
-            email,
-        }),
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
+export async function getProjectById(id: string) {
+    const response = await axios.put(
+        "http://localhost:3000/api/auth/getProjectById",
+        {
+            body: JSON.stringify({
+                id,
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+    );
 
     const data = response.data;
 
     // error check
-    if (data.message !== "updated user") {
+    if (data.message !== "found project") {
         throw new Error(data.message || "something went wrong");
     }
 

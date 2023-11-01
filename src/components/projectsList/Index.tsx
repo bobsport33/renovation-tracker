@@ -5,10 +5,36 @@ import Link from "next/link";
 import Modal from "@/subComponents/Modal";
 import { paragraphLarge } from "@/styles/Type";
 import { colors } from "@/styles/variables";
-import { getProjects } from "@/utils/auth";
+
+interface DimensionalMaterial {
+    material: string;
+    dimension1: string;
+    dimension2: string;
+    sqft: string;
+    pricePerSqft: string;
+}
+
+interface NondimensionalMaterial {
+    material: string;
+    size: string;
+    quantity: string;
+    pricePerUnit: string;
+}
+
+interface Project {
+    mesage: string;
+    project: {
+        dimensionalMaterial: DimensionalMaterial[];
+        nondimensionalMaterial: NondimensionalMaterial[];
+        projectName: string;
+        totalPrice: number;
+        _id: string;
+    };
+}
 
 interface Props {
     email: string;
+    projects: Project[];
 }
 
 const ProjectsListCont = styled.div`
@@ -37,23 +63,25 @@ const ProjectsListCont = styled.div`
     }
 `;
 
-const ProjectsList = ({ email }: Props) => {
-    // const projects = getProjects(email);
-    console.log(email);
+const ProjectsList = ({ email, projects }: Props) => {
     return (
         <ProjectsListCont>
             <Modal className="projects">
                 <h1 className="projects__heading">Projects</h1>
                 <ul>
-                    {/* {projects.map((project) => {
+                    {projects.map((project) => {
+                        console.log(project);
                         return (
-                            <li key={project.id} className="projects__link">
-                                <Link href={`/projects/${project.id}`}>
-                                    {project.title}
+                            <li
+                                key={project.project._id}
+                                className="projects__link"
+                            >
+                                <Link href={`/projects/${project.project._id}`}>
+                                    {project.project.projectName}
                                 </Link>
                             </li>
                         );
-                    })} */}
+                    })}
                 </ul>
             </Modal>
         </ProjectsListCont>
