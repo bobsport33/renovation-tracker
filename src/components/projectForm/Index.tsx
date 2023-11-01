@@ -13,33 +13,8 @@ import Input from "@/subComponents/Input";
 import { paragraphMedium, paragraphSmall } from "@/styles/Type";
 import DimensionalTable from "./DimensionalTable";
 import NondimensionalTable from "./NondimensionalTable";
-import { createProject, updateUser } from "@/utils/auth";
-
-interface Project {
-    mesage: string;
-    project: {
-        dimensionalMaterial: DimensionalFormValue[];
-        nondimensionalMaterial: NondimensionalFormValue[];
-        projectName: string;
-        totalPrice: number;
-        _id: string;
-    };
-}
-
-interface DimensionalFormValue {
-    material: string;
-    dimension1: string;
-    dimension2: string;
-    sqft: string;
-    pricePerSqft: string;
-}
-
-interface NondimensionalFormValue {
-    material: string;
-    size: string;
-    quantity: string;
-    pricePerUnit: string;
-}
+import { createProject, updateUser, updateProject } from "@/utils/auth";
+import { Dimensional, Nondimensional, Project } from "@/types/Index";
 
 interface Props {
     email?: string;
@@ -144,7 +119,6 @@ const ProjectForm = ({ email, project }: Props) => {
 
     const removeDimensionalRowHandler = () => {
         setDimensionalFormValues((curr) => [...curr.slice(0, -1)]);
-        console.log(dimensionalFormValues);
     };
 
     const addNonDimensionalRowHandler = () => {
@@ -166,7 +140,7 @@ const ProjectForm = ({ email, project }: Props) => {
     const handleDimensionalInputChangeHandler = (
         e: ChangeEvent<HTMLInputElement>,
         rowIndex: number,
-        fieldName: keyof DimensionalFormValue
+        fieldName: keyof Dimensional
     ) => {
         const { value } = e.target;
         setDimensionalFormValues((prevdimensionalFormValues) => {
@@ -194,7 +168,7 @@ const ProjectForm = ({ email, project }: Props) => {
     const nondimensionalInputChangeHandler = (
         e: ChangeEvent<HTMLInputElement>,
         rowIndex: number,
-        fieldName: keyof NondimensionalFormValue
+        fieldName: keyof Nondimensional
     ) => {
         const { value } = e.target;
         setNondimensionalFormValues((prevdimensionalFormValues) => {
@@ -209,7 +183,9 @@ const ProjectForm = ({ email, project }: Props) => {
     const formSubmitHandler = async (e: FormEvent) => {
         e.preventDefault();
         let name;
+
         if (projectName.current && email) {
+            // new submission
             name = projectName.current.value;
 
             const data = await createProject(
@@ -223,10 +199,22 @@ const ProjectForm = ({ email, project }: Props) => {
             // Need to add ID to array of project ids on the user
 
             const result = await updateUser(email, insertedId);
-            console.log(result);
 
             // send user to page for project they just created
             router.push(`/projects/${insertedId}`);
+        } else if (projectName.current && project) {
+            // update existing submission
+            const projectId = project.project._id;
+
+            name = projectName.current.value;
+
+            const result = await updateProject(
+                projectId,
+                name,
+                dimensionalFormValues,
+                nondimensionalFormValues,
+                totalPrice
+            );
         }
     };
 

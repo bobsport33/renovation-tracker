@@ -3,20 +3,14 @@ import styled from "styled-components";
 
 import AddButton from "@/subComponents/AddButton";
 import RemoveButton from "@/subComponents/RemoveButton";
-
-interface NondimensionalFormValue {
-    material: string;
-    size: string;
-    quantity: string;
-    pricePerUnit: string;
-}
+import { Nondimensional } from "@/types/Index";
 
 interface NondimensionalTableProps {
-    nondimensionalFormValues: NondimensionalFormValue[];
+    nondimensionalFormValues: Nondimensional[];
     nondimensionalInputChangeHandler: (
         e: ChangeEvent<HTMLInputElement>,
         rowIndex: number,
-        fieldName: keyof NondimensionalFormValue
+        fieldName: keyof Nondimensional
     ) => void;
     addNonDimensionalRowHandler: () => void;
     removeNonDimensionalRowHandler: () => void;

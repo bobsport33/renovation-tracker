@@ -4,21 +4,14 @@ import styled from "styled-components";
 import AddButton from "@/subComponents/AddButton";
 import RemoveButton from "@/subComponents/RemoveButton";
 import DimensionalRow from "./DimensionalRow";
-
-interface DimensionalFormValue {
-    material: string;
-    dimension1: string;
-    dimension2: string;
-    sqft: string;
-    pricePerSqft: string;
-}
+import { Dimensional } from "@/types/Index";
 
 interface DimensionalTableProps {
-    dimensionalFormValues: DimensionalFormValue[];
+    dimensionalFormValues: Dimensional[];
     handleDimensionalInputChangeHandler: (
         e: ChangeEvent<HTMLInputElement>,
         rowIndex: number,
-        fieldName: keyof DimensionalFormValue
+        fieldName: keyof Dimensional
     ) => void;
     addDimensionalRowHandler: () => void;
     removeDimensionalRowHandler: () => void;

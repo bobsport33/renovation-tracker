@@ -5,39 +5,14 @@ import axios from "axios";
 
 import ProjectsList from "@/components/projectsList/Index";
 import { getProjectById } from "@/utils/auth";
+import { Project } from "@/types/Index";
 
-interface DimensionalMaterial {
-    material: string;
-    dimension1: string;
-    dimension2: string;
-    sqft: string;
-    pricePerSqft: string;
-}
-
-interface NondimensionalMaterial {
-    material: string;
-    size: string;
-    quantity: string;
-    pricePerUnit: string;
-}
-
-interface Project {
-    mesage: string;
-    project: {
-        dimensionalMaterial: DimensionalMaterial[];
-        nondimensionalMaterial: NondimensionalMaterial[];
-        projectName: string;
-        totalPrice: number;
-        _id: string;
-    };
-}
 interface Props {
     email: string;
     projects: Project[];
 }
 
 const Projects = ({ email, projects }: Props) => {
-    console.log(projects);
     return <ProjectsList email={email} projects={projects} />;
 };
 

@@ -1,9 +1,25 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import styled from "styled-components";
+
+import { Nondimensional } from "@/types/Index";
+
+interface NondimensionalRowProps {
+    rowIndex: number;
+    row: Nondimensional;
+    nondimensionalInputChangeHandler: (
+        e: ChangeEvent<HTMLInputElement>,
+        rowIndex: number,
+        fieldName: keyof Nondimensional
+    ) => void;
+}
 
 const NondimensionalRowCont = styled.tr``;
 
-const NondimensionalRow = () => {
+const NondimensionalRow = ({
+    rowIndex,
+    row,
+    nondimensionalInputChangeHandler,
+}: NondimensionalRowProps) => {
     return (
         <NondimensionalRowCont>
             <td>

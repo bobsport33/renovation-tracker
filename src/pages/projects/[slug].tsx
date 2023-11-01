@@ -4,38 +4,13 @@ import { GetServerSidePropsContext } from "next";
 
 import { getProjectById } from "@/utils/auth";
 import ProjectForm from "@/components/projectForm/Index";
+import { Project } from "@/types/Index";
 
-interface DimensionalMaterial {
-    material: string;
-    dimension1: string;
-    dimension2: string;
-    sqft: string;
-    pricePerSqft: string;
-}
-
-interface NondimensionalMaterial {
-    material: string;
-    size: string;
-    quantity: string;
-    pricePerUnit: string;
-}
-
-interface Project {
-    mesage: string;
-    project: {
-        dimensionalMaterial: DimensionalMaterial[];
-        nondimensionalMaterial: NondimensionalMaterial[];
-        projectName: string;
-        totalPrice: number;
-        _id: string;
-    };
-}
 interface Props {
     project: Project;
 }
 
 const ProjectPage = ({ project }: Props) => {
-    console.log(project);
     return <ProjectForm project={project}></ProjectForm>;
 };
 

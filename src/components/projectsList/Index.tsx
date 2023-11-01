@@ -70,7 +70,6 @@ const ProjectsList = ({ email, projects }: Props) => {
                 <h1 className="projects__heading">Projects</h1>
                 <ul>
                     {projects.map((project) => {
-                        console.log(project);
                         return (
                             <li
                                 key={project.project._id}

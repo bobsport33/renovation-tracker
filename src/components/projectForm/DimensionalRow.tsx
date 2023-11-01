@@ -1,21 +1,14 @@
 import React, { ChangeEvent } from "react";
 import styled from "styled-components";
-
-interface DimensionalFormValue {
-    material: string;
-    dimension1: string;
-    dimension2: string;
-    sqft: string;
-    pricePerSqft: string;
-}
+import { Dimensional } from "@/types/Index";
 
 interface DimensionalRowProps {
     rowIndex: number;
-    row: DimensionalFormValue;
+    row: Dimensional;
     handleDimensionalInputChangeHandler: (
         e: ChangeEvent<HTMLInputElement>,
         rowIndex: number,
-        fieldName: keyof DimensionalFormValue
+        fieldName: keyof Dimensional
     ) => void;
 }
 

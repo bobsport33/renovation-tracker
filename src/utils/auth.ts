@@ -132,3 +132,32 @@ export async function getProjectById(id: string) {
 
     return data;
 }
+
+export async function updateProject(
+    projectId: string,
+    projectName: string,
+    dimensionalMaterial: DimensionalMaterial[],
+    nonDimensionalMaterial: NonDimensionalMaterial[],
+    totalPrice: number
+) {
+    const response = await axios.post("/api/auth/updateProject", {
+        body: JSON.stringify({
+            projectId,
+            projectName,
+            dimensionalMaterial,
+            nonDimensionalMaterial,
+            totalPrice,
+        }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    const data = response.data;
+
+    if (data.message !== "updated project") {
+        throw new Error(data.message || "something went wrong");
+    }
+
+    return data;
+}
