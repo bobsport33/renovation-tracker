@@ -7,11 +7,12 @@ import ProjectForm from "@/components/projectForm/Index";
 import { Project } from "@/types/Index";
 
 interface Props {
+    email: string;
     project: Project;
 }
 
-const ProjectPage = ({ project }: Props) => {
-    return <ProjectForm project={project}></ProjectForm>;
+const ProjectPage = ({ email, project }: Props) => {
+    return <ProjectForm email={email} project={project}></ProjectForm>;
 };
 
 export default ProjectPage;
@@ -20,6 +21,8 @@ export const getServerSideProps = async (
     context: GetServerSidePropsContext
 ) => {
     const session = await getSession(context);
+
+    const email = session?.user?.email;
     const id = context.query.slug;
 
     let projectDetails;
@@ -29,7 +32,7 @@ export const getServerSideProps = async (
 
     if (session) {
         return {
-            props: { project: projectDetails },
+            props: { email: email, project: projectDetails },
         };
     } else if (session == null) {
         return {

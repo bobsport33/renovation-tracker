@@ -13,7 +13,12 @@ import Input from "@/subComponents/Input";
 import { paragraphMedium, paragraphSmall } from "@/styles/Type";
 import DimensionalTable from "./DimensionalTable";
 import NondimensionalTable from "./NondimensionalTable";
-import { createProject, updateUser, updateProject } from "@/utils/auth";
+import {
+    createProject,
+    updateUser,
+    updateProject,
+    deleteProject,
+} from "@/utils/auth";
 import { Dimensional, Nondimensional, Project } from "@/types/Index";
 
 interface Props {
@@ -180,6 +185,14 @@ const ProjectForm = ({ email, project }: Props) => {
         });
     };
 
+    const deleteProjectHandler = async () => {
+        if (email && project?.project._id) {
+            const result = await deleteProject(email, project.project._id);
+
+            router.push("/projects");
+        }
+    };
+
     const formSubmitHandler = async (e: FormEvent) => {
         e.preventDefault();
         let name;
@@ -252,11 +265,13 @@ const ProjectForm = ({ email, project }: Props) => {
                             removeNonDimensionalRowHandler
                         }
                     />
-                    <button>save</button>
+                    <button>Save</button>
+
                     <p className="project__total">
                         Total Price: ${totalPrice.toFixed(2)}
                     </p>
                 </form>
+                <button onClick={deleteProjectHandler}>Delete</button>
             </Modal>
         </ProjectFormCont>
     );

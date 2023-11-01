@@ -161,3 +161,25 @@ export async function updateProject(
 
     return data;
 }
+
+export async function deleteProject(email: string, projectId: string) {
+    console.log(projectId);
+    console.log(email);
+    const response = await axios.post("/api/auth/deleteProject", {
+        body: JSON.stringify({
+            projectId,
+            email,
+        }),
+        headers: {
+            "Content-Type": "applicaiton/json",
+        },
+    });
+
+    const data = response.data;
+
+    if (data.message !== "deleted project") {
+        throw new Error(data.message || "something went wrong");
+    }
+
+    return data;
+}
