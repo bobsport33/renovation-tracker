@@ -2,7 +2,39 @@ import React from "react";
 import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext } from "next";
 
-const ProjectPage = () => {
+import { getProjectById } from "@/utils/auth";
+
+interface DimensionalMaterial {
+    material: string;
+    dimension1: string;
+    dimension2: string;
+    sqft: string;
+    pricePerSqft: string;
+}
+
+interface NondimensionalMaterial {
+    material: string;
+    size: string;
+    quantity: string;
+    pricePerUnit: string;
+}
+
+interface Project {
+    mesage: string;
+    project: {
+        dimensionalMaterial: DimensionalMaterial[];
+        nondimensionalMaterial: NondimensionalMaterial[];
+        projectName: string;
+        totalPrice: number;
+        _id: string;
+    };
+}
+interface Props {
+    project: Project;
+}
+
+const ProjectPage = ({ project }: Props) => {
+    console.log(project);
     return <div></div>;
 };
 
@@ -12,10 +44,16 @@ export const getServerSideProps = async (
     context: GetServerSidePropsContext
 ) => {
     const session = await getSession(context);
+    const id = context.query.slug;
+
+    let projectDetails;
+    if (typeof id === "string") {
+        projectDetails = await getProjectById(id);
+    }
 
     if (session) {
         return {
-            props: { session },
+            props: { project: projectDetails },
         };
     } else if (session == null) {
         return {
