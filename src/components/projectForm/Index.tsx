@@ -6,6 +6,7 @@ import React, {
     useEffect,
 } from "react";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 import Modal from "@/subComponents/Modal";
 import Input from "@/subComponents/Input";
@@ -14,8 +15,15 @@ import DimensionalTable from "./DimensionalTable";
 import NondimensionalTable from "./NondimensionalTable";
 import { createProject, updateUser } from "@/utils/auth";
 
-interface Props {
-    email: string;
+interface Project {
+    mesage: string;
+    project: {
+        dimensionalMaterial: DimensionalFormValue[];
+        nondimensionalMaterial: NondimensionalFormValue[];
+        projectName: string;
+        totalPrice: number;
+        _id: string;
+    };
 }
 
 interface DimensionalFormValue {
@@ -31,6 +39,11 @@ interface NondimensionalFormValue {
     size: string;
     quantity: string;
     pricePerUnit: string;
+}
+
+interface Props {
+    email?: string;
+    project?: Project;
 }
 
 const ProjectFormCont = styled.div`
@@ -55,31 +68,44 @@ const ProjectFormCont = styled.div`
     }
 `;
 
-const ProjectForm = ({ email }: Props) => {
-    const [dimensionalFormValues, setDimensionalFormValues] = useState([
-        {
-            material: "",
-            dimension1: "",
-            dimension2: "",
-            sqft: "",
-            pricePerSqft: "",
-        },
-    ]);
+const ProjectForm = ({ email, project }: Props) => {
+    const router = useRouter();
+    const [dimensionalFormValues, setDimensionalFormValues] = useState(
+        project?.project.dimensionalMaterial
+            ? project.project.dimensionalMaterial
+            : [
+                  {
+                      material: "",
+                      dimension1: "",
+                      dimension2: "",
+                      sqft: "",
+                      pricePerSqft: "",
+                  },
+              ]
+    );
 
-    const [nondimensionalFormValues, setNondimensionalFormValues] = useState([
-        {
-            material: "",
-            size: "",
-            quantity: "",
-            pricePerUnit: "",
-        },
-    ]);
+    const [nondimensionalFormValues, setNondimensionalFormValues] = useState(
+        project
+            ? project.project.nondimensionalMaterial
+            : [
+                  {
+                      material: "",
+                      size: "",
+                      quantity: "",
+                      pricePerUnit: "",
+                  },
+              ]
+    );
 
     const [totalPrice, setTotalPrice] = useState(0);
 
-    const projectName = useRef() as React.MutableRefObject<HTMLInputElement>;
+    const projectName = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
+        // set projectName ref to initial project value if it exists
+        if (project && project.project && projectName.current) {
+            projectName.current.value = project.project.projectName;
+        }
         // Calculate total price whenever dimensionalFormValues or nondimensionalFormValues change
         let sum = 0;
         dimensionalFormValues.forEach((row) => {
@@ -101,7 +127,7 @@ const ProjectForm = ({ email }: Props) => {
         });
 
         setTotalPrice(sum);
-    }, [dimensionalFormValues, nondimensionalFormValues]);
+    }, [dimensionalFormValues, nondimensionalFormValues, project]);
 
     const addDimensionalRowHandler = () => {
         setDimensionalFormValues((curr) => [
@@ -182,22 +208,26 @@ const ProjectForm = ({ email }: Props) => {
 
     const formSubmitHandler = async (e: FormEvent) => {
         e.preventDefault();
-        const name = projectName.current.value;
+        let name;
+        if (projectName.current && email) {
+            name = projectName.current.value;
 
-        const data = await createProject(
-            name,
-            dimensionalFormValues,
-            nondimensionalFormValues,
-            totalPrice
-        );
+            const data = await createProject(
+                name,
+                dimensionalFormValues,
+                nondimensionalFormValues,
+                totalPrice
+            );
 
-        const { insertedId } = data;
-        // Need to add ID to array of project ids on the user
+            const { insertedId } = data;
+            // Need to add ID to array of project ids on the user
 
-        const result = await updateUser(email, insertedId);
-        console.log(result);
+            const result = await updateUser(email, insertedId);
+            console.log(result);
 
-        // send user to page for project they just created
+            // send user to page for project they just created
+            router.push(`/projects/${insertedId}`);
+        }
     };
 
     return (

@@ -3,6 +3,7 @@ import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext } from "next";
 
 import { getProjectById } from "@/utils/auth";
+import ProjectForm from "@/components/projectForm/Index";
 
 interface DimensionalMaterial {
     material: string;
@@ -35,7 +36,7 @@ interface Props {
 
 const ProjectPage = ({ project }: Props) => {
     console.log(project);
-    return <div></div>;
+    return <ProjectForm project={project}></ProjectForm>;
 };
 
 export default ProjectPage;
