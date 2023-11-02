@@ -1,9 +1,11 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, memo } from "react";
 import styled from "styled-components";
 
 import AddButton from "@/subComponents/AddButton";
 import RemoveButton from "@/subComponents/RemoveButton";
 import { Nondimensional } from "@/types/Index";
+import { paragraphMedium, paragraphSmall } from "@/styles/Type";
+import NondimensionalRow from "./NondimensionalRow";
 
 interface NondimensionalTableProps {
     nondimensionalFormValues: Nondimensional[];
@@ -16,106 +18,80 @@ interface NondimensionalTableProps {
     removeNonDimensionalRowHandler: () => void;
 }
 
-const NondimensionalTableCont = styled.div``;
+const NondimensionalTableCont = styled.div`
+    .table {
+        &__table {
+            width: 80%;
+            padding: 20px;
+        }
+        &__title {
+            ${paragraphMedium}
+        }
 
-const NondimensionalTable = ({
-    nondimensionalFormValues,
-    nondimensionalInputChangeHandler,
-    addNonDimensionalRowHandler,
-    removeNonDimensionalRowHandler,
-}: NondimensionalTableProps) => {
-    return (
-        <NondimensionalTableCont>
-            <p className="project__title">
-                Non Dimensionsal Material Calculator
-            </p>
-            <table className="project__grid">
-                <thead>
-                    <tr>
-                        <th className="project__subtitle">Material</th>
-                        <th className="project__subtitle">Size</th>
-                        <th className="project__subtitle">Quantity</th>
-                        <th className="project__subtitle">Price per Unit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {nondimensionalFormValues.map((row, rowIndex) => {
-                        return (
-                            <tr key={rowIndex}>
-                                <td>
-                                    <input
-                                        type="text"
-                                        value={row.material}
-                                        onChange={(e) =>
-                                            nondimensionalInputChangeHandler(
-                                                e,
-                                                rowIndex,
-                                                "material"
-                                            )
-                                        }
-                                    />
-                                </td>
-                                <td>
-                                    <input
-                                        type="text"
-                                        value={row.size}
-                                        onChange={(e) =>
-                                            nondimensionalInputChangeHandler(
-                                                e,
-                                                rowIndex,
-                                                "size"
-                                            )
-                                        }
-                                    />
-                                </td>
+        &__subtitle {
+            ${paragraphSmall}
+            text-align: start;
+        }
 
-                                <td>
-                                    <input
-                                        type="text"
-                                        value={row.quantity}
-                                        onChange={(e) =>
-                                            nondimensionalInputChangeHandler(
-                                                e,
-                                                rowIndex,
-                                                "quantity"
-                                            )
-                                        }
-                                    />
-                                </td>
-                                <td>
-                                    <input
-                                        type="text"
-                                        value={row.pricePerUnit}
-                                        onChange={(e) =>
-                                            nondimensionalInputChangeHandler(
-                                                e,
-                                                rowIndex,
-                                                "pricePerUnit"
-                                            )
-                                        }
-                                    />
-                                </td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-            <div
-                className="project__btn project__btn--add"
-                onClick={addNonDimensionalRowHandler}
-            >
-                Add Row <AddButton />
-            </div>
-            {nondimensionalFormValues.length > 1 && (
+        &__total {
+            ${paragraphSmall}
+        }
+    }
+`;
+
+const NondimensionalTable = memo(
+    ({
+        nondimensionalFormValues,
+        nondimensionalInputChangeHandler,
+        addNonDimensionalRowHandler,
+        removeNonDimensionalRowHandler,
+    }: NondimensionalTableProps) => {
+        return (
+            <NondimensionalTableCont>
+                <p className="table__title">
+                    Non Dimensionsal Material Calculator
+                </p>
+                <table className="table__table">
+                    <thead>
+                        <tr>
+                            <th className="table__subtitle">Material</th>
+                            <th className="table__subtitle">Size</th>
+                            <th className="table__subtitle">Quantity</th>
+                            <th className="table__subtitle">Price per Unit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {nondimensionalFormValues.map((row, rowIndex) => {
+                            return (
+                                <NondimensionalRow
+                                    key={rowIndex}
+                                    rowIndex={rowIndex}
+                                    row={row}
+                                    nondimensionalInputChangeHandler={
+                                        nondimensionalInputChangeHandler
+                                    }
+                                />
+                            );
+                        })}
+                    </tbody>
+                </table>
                 <div
-                    className="project__btn project__btn--remove"
-                    onClick={removeNonDimensionalRowHandler}
+                    className="table__btn table__btn--add"
+                    onClick={addNonDimensionalRowHandler}
                 >
-                    Remove Row <RemoveButton />
+                    Add Row <AddButton />
                 </div>
-            )}
-        </NondimensionalTableCont>
-    );
-};
+                {nondimensionalFormValues.length > 1 && (
+                    <div
+                        className="table__btn table__btn--remove"
+                        onClick={removeNonDimensionalRowHandler}
+                    >
+                        Remove Row <RemoveButton />
+                    </div>
+                )}
+            </NondimensionalTableCont>
+        );
+    }
+);
 
 export default NondimensionalTable;

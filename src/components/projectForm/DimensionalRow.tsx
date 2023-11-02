@@ -5,77 +5,76 @@ import { Dimensional } from "@/types/Index";
 interface DimensionalRowProps {
     rowIndex: number;
     row: Dimensional;
-    handleDimensionalInputChangeHandler: (
+    dimensionalInputChangeHandler: (
         e: ChangeEvent<HTMLInputElement>,
         rowIndex: number,
         fieldName: keyof Dimensional
     ) => void;
 }
 
-const DimensionalRowCont = styled.tr``;
+const DimensionalRowCont = styled.tr`
+    .row {
+        &__input {
+            width: 100%;
+        }
+    }
+`;
 
 const DimensionalRow = ({
     rowIndex,
     row,
-    handleDimensionalInputChangeHandler,
+    dimensionalInputChangeHandler,
 }: DimensionalRowProps) => {
     return (
         <DimensionalRowCont>
             <td>
                 <input
+                    className="row__input"
                     type="text"
                     value={row.material}
                     onChange={(e) =>
-                        handleDimensionalInputChangeHandler(
-                            e,
-                            rowIndex,
-                            "material"
-                        )
+                        dimensionalInputChangeHandler(e, rowIndex, "material")
                     }
                 />
             </td>
             <td>
                 <input
+                    className="row__input"
                     type="text"
                     value={row.dimension1}
                     onChange={(e) =>
-                        handleDimensionalInputChangeHandler(
-                            e,
-                            rowIndex,
-                            "dimension1"
-                        )
+                        dimensionalInputChangeHandler(e, rowIndex, "dimension1")
                     }
                 />
             </td>
             <td>
                 <input
+                    className="row__input"
                     type="text"
                     value={row.dimension2}
                     onChange={(e) =>
-                        handleDimensionalInputChangeHandler(
-                            e,
-                            rowIndex,
-                            "dimension2"
-                        )
+                        dimensionalInputChangeHandler(e, rowIndex, "dimension2")
                     }
                 />
             </td>
             <td>
                 <input
+                    className="row__input"
                     type="text"
                     value={row.sqft}
                     readOnly
                     onChange={(e) =>
-                        handleDimensionalInputChangeHandler(e, rowIndex, "sqft")
+                        dimensionalInputChangeHandler(e, rowIndex, "sqft")
                     }
                 />
             </td>
             <td>
                 <input
+                    className="row__input"
                     type="text"
                     value={row.pricePerSqft}
                     onChange={(e) =>
-                        handleDimensionalInputChangeHandler(
+                        dimensionalInputChangeHandler(
                             e,
                             rowIndex,
                             "pricePerSqft"

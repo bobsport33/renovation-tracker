@@ -4,6 +4,7 @@ import React, {
     useRef,
     useState,
     useEffect,
+    useCallback,
 } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
@@ -34,21 +35,20 @@ const ProjectFormCont = styled.div`
     .project {
         width: 85%;
 
-        &__title {
-            ${paragraphMedium}
+        &__form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        &__subtitle {
-            ${paragraphSmall}
-        }
-
-        &__total {
-            ${paragraphSmall}
+        &__name {
+            width: 40%;
         }
     }
 `;
 
 const ProjectForm = ({ email, project }: Props) => {
+    console.log("index");
     const router = useRouter();
     const [dimensionalFormValues, setDimensionalFormValues] = useState(
         project?.project.dimensionalMaterial
@@ -107,9 +107,9 @@ const ProjectForm = ({ email, project }: Props) => {
         });
 
         setTotalPrice(sum);
-    }, [dimensionalFormValues, nondimensionalFormValues, project]);
+    }, [dimensionalFormValues, nondimensionalFormValues, setTotalPrice]);
 
-    const addDimensionalRowHandler = () => {
+    const addDimensionalRowHandler = useCallback(() => {
         setDimensionalFormValues((curr) => [
             ...curr,
             {
@@ -120,13 +120,13 @@ const ProjectForm = ({ email, project }: Props) => {
                 pricePerSqft: "",
             },
         ]);
-    };
+    }, [setDimensionalFormValues]);
 
     const removeDimensionalRowHandler = () => {
         setDimensionalFormValues((curr) => [...curr.slice(0, -1)]);
     };
 
-    const addNonDimensionalRowHandler = () => {
+    const addNonDimensionalRowHandler = useCallback(() => {
         setNondimensionalFormValues((curr) => [
             ...curr,
             {
@@ -136,13 +136,13 @@ const ProjectForm = ({ email, project }: Props) => {
                 pricePerUnit: "",
             },
         ]);
-    };
+    }, [setNondimensionalFormValues]);
 
     const removeNonDimensionalRowHandler = () => {
         setNondimensionalFormValues((curr) => [...curr.slice(0, -1)]);
     };
 
-    const handleDimensionalInputChangeHandler = (
+    const dimensionalInputChangeHandler = (
         e: ChangeEvent<HTMLInputElement>,
         rowIndex: number,
         fieldName: keyof Dimensional
@@ -234,18 +234,19 @@ const ProjectForm = ({ email, project }: Props) => {
     return (
         <ProjectFormCont>
             <Modal className="project">
-                <form onSubmit={formSubmitHandler}>
+                <form className="project__form" onSubmit={formSubmitHandler}>
                     <Input
                         id="projectName"
                         text="Project Name"
                         ref={projectName}
+                        className="project__name"
                     />
                     <hr />
 
                     <DimensionalTable
                         dimensionalFormValues={dimensionalFormValues}
-                        handleDimensionalInputChangeHandler={
-                            handleDimensionalInputChangeHandler
+                        dimensionalInputChangeHandler={
+                            dimensionalInputChangeHandler
                         }
                         addDimensionalRowHandler={addDimensionalRowHandler}
                         removeDimensionalRowHandler={

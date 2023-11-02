@@ -13,7 +13,11 @@ interface NondimensionalRowProps {
     ) => void;
 }
 
-const NondimensionalRowCont = styled.tr``;
+const NondimensionalRowCont = styled.tr`
+    .row__input {
+        width: 100%;
+    }
+`;
 
 const NondimensionalRow = ({
     rowIndex,
@@ -24,6 +28,7 @@ const NondimensionalRow = ({
         <NondimensionalRowCont>
             <td>
                 <input
+                    className="row__input"
                     type="text"
                     value={row.material}
                     onChange={(e) =>
@@ -37,6 +42,7 @@ const NondimensionalRow = ({
             </td>
             <td>
                 <input
+                    className="row__input"
                     type="text"
                     value={row.size}
                     onChange={(e) =>
@@ -47,6 +53,7 @@ const NondimensionalRow = ({
 
             <td>
                 <input
+                    className="row__input"
                     type="text"
                     value={row.quantity}
                     onChange={(e) =>
@@ -60,6 +67,7 @@ const NondimensionalRow = ({
             </td>
             <td>
                 <input
+                    className="row__input"
                     type="text"
                     value={row.pricePerUnit}
                     onChange={(e) =>

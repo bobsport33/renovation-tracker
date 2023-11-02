@@ -40,18 +40,25 @@ const HeaderCont = styled.header`
             flex-direction: row;
             align-items: center;
             gap: 8px;
+
+            &--signout {
+                border: none;
+                padding: 8px;
+                border-radius: 8px;
+                background-color: ${colors.neutral100};
+                transition: background-color 0.3s;
+
+                &:hover {
+                    background-color: ${colors.neutral200};
+                    cursor: pointer;
+                }
+            }
         }
     }
 `;
 
 const Header = () => {
     const { data: session } = useSession();
-
-    const [newProject, setNewProject] = useState(false);
-
-    const newProjectHandler = () => {
-        setNewProject((cur) => !cur);
-    };
 
     return (
         <HeaderCont>
@@ -61,7 +68,12 @@ const Header = () => {
                 </Link>
                 <div className="header__links">
                     {session && (
-                        <button onClick={() => signOut()}>Sign out</button>
+                        <button
+                            className="header__link header__link--signout"
+                            onClick={() => signOut()}
+                        >
+                            Sign out
+                        </button>
                     )}
                     {!session && (
                         <Link
@@ -90,7 +102,6 @@ const Header = () => {
                         <Link
                             className="header__link"
                             href="/projects/new-project"
-                            onClick={newProjectHandler}
                         >
                             New Projects <AddButton />
                         </Link>

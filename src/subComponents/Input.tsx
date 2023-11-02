@@ -6,6 +6,7 @@ import { paragraphMedium } from "@/styles/Type";
 interface Input {
     id: string;
     text: string;
+    className?: string;
 }
 
 const InputCont = styled.div`
@@ -24,9 +25,9 @@ const InputCont = styled.div`
 `;
 
 const Input = forwardRef(
-    ({ id, text }: Input, ref: React.Ref<HTMLInputElement>) => {
+    ({ id, text, className }: Input, ref: React.Ref<HTMLInputElement>) => {
         return (
-            <InputCont>
+            <InputCont className={className}>
                 <label htmlFor={id} className="input__label">
                     {text}
                 </label>

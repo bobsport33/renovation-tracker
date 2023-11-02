@@ -8,8 +8,6 @@ async function handler(req: Request, res: Response) {
 
     const { email, projectId } = data;
 
-    console.log(projectId);
-    console.log(email);
     const client = await connectToDB();
 
     const db = client.db();

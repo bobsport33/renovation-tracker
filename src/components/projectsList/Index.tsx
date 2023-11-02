@@ -3,7 +3,8 @@ import styled from "styled-components";
 import Link from "next/link";
 
 import Modal from "@/subComponents/Modal";
-import { paragraphLarge } from "@/styles/Type";
+import ProjectCard from "./Card";
+import { paragraphLarge, paragraphMedium } from "@/styles/Type";
 import { colors } from "@/styles/variables";
 
 interface DimensionalMaterial {
@@ -45,43 +46,53 @@ const ProjectsListCont = styled.div`
         display: flex;
         align-items: center;
         flex-direction: column;
-        gap: 20px;
+        gap: 30px;
+        padding: 30px 40px;
 
         &__heading {
             color: ${colors.neutral1000};
         }
-        &__link {
-            ${paragraphLarge}
-            color: ${colors.neutral1000};
-            transition: color 0.3s;
 
-            &:hover {
-                cursor: pointer;
-                color: ${colors.blue700};
-            }
+        &__container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        &__total {
+            ${paragraphMedium}
+            align-self: flex-end;
         }
     }
 `;
 
 const ProjectsList = ({ email, projects }: Props) => {
+    const projectTotals = projects.map((project) => {
+        return project.project.totalPrice;
+    });
+    const totalCost = projectTotals.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue;
+    });
+
     return (
         <ProjectsListCont>
             <Modal className="projects">
                 <h1 className="projects__heading">Projects</h1>
-                <ul>
+                <div className="projects__container">
                     {projects.map((project) => {
+                        // console.log(project);
                         return (
-                            <li
+                            <ProjectCard
                                 key={project.project._id}
-                                className="projects__link"
-                            >
-                                <Link href={`/projects/${project.project._id}`}>
-                                    {project.project.projectName}
-                                </Link>
-                            </li>
+                                projectProps={project}
+                            ></ProjectCard>
                         );
                     })}
-                </ul>
+                </div>
+                <p className="projects__total">
+                    Total Cost of All Projects - ${totalCost.toFixed(2)}
+                </p>
             </Modal>
         </ProjectsListCont>
     );
