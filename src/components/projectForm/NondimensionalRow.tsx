@@ -30,7 +30,6 @@ const NondimensionalRow = ({
             <td>
                 <Input
                     className="row__input"
-                    type="text"
                     value={row.material}
                     onChange={(e) =>
                         nondimensionalInputChangeHandler(
@@ -44,7 +43,6 @@ const NondimensionalRow = ({
             <td>
                 <Input
                     className="row__input"
-                    type="text"
                     value={row.size}
                     onChange={(e) =>
                         nondimensionalInputChangeHandler(e, rowIndex, "size")
@@ -55,7 +53,6 @@ const NondimensionalRow = ({
             <td>
                 <Input
                     className="row__input"
-                    type="text"
                     value={row.quantity}
                     onChange={(e) =>
                         nondimensionalInputChangeHandler(
@@ -69,7 +66,6 @@ const NondimensionalRow = ({
             <td>
                 <Input
                     className="row__input"
-                    type="text"
                     value={row.pricePerUnit}
                     onChange={(e) =>
                         nondimensionalInputChangeHandler(
