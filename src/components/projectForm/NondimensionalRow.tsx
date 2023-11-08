@@ -2,6 +2,7 @@ import React, { ChangeEvent } from "react";
 import styled from "styled-components";
 
 import { Nondimensional } from "@/types/Index";
+import Input from "@/subComponents/Input";
 
 interface NondimensionalRowProps {
     rowIndex: number;
@@ -27,7 +28,7 @@ const NondimensionalRow = ({
     return (
         <NondimensionalRowCont>
             <td>
-                <input
+                <Input
                     className="row__input"
                     type="text"
                     value={row.material}
@@ -41,7 +42,7 @@ const NondimensionalRow = ({
                 />
             </td>
             <td>
-                <input
+                <Input
                     className="row__input"
                     type="text"
                     value={row.size}
@@ -52,7 +53,7 @@ const NondimensionalRow = ({
             </td>
 
             <td>
-                <input
+                <Input
                     className="row__input"
                     type="text"
                     value={row.quantity}
@@ -66,7 +67,7 @@ const NondimensionalRow = ({
                 />
             </td>
             <td>
-                <input
+                <Input
                     className="row__input"
                     type="text"
                     value={row.pricePerUnit}

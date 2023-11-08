@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from "react";
 import styled from "styled-components";
 import { Dimensional } from "@/types/Index";
+import Input from "@/subComponents/Input";
 
 interface DimensionalRowProps {
     rowIndex: number;
@@ -28,9 +29,8 @@ const DimensionalRow = ({
     return (
         <DimensionalRowCont>
             <td>
-                <input
+                <Input
                     className="row__input"
-                    type="text"
                     value={row.material}
                     onChange={(e) =>
                         dimensionalInputChangeHandler(e, rowIndex, "material")
@@ -38,9 +38,8 @@ const DimensionalRow = ({
                 />
             </td>
             <td>
-                <input
+                <Input
                     className="row__input"
-                    type="text"
                     value={row.dimension1}
                     onChange={(e) =>
                         dimensionalInputChangeHandler(e, rowIndex, "dimension1")
@@ -48,9 +47,8 @@ const DimensionalRow = ({
                 />
             </td>
             <td>
-                <input
+                <Input
                     className="row__input"
-                    type="text"
                     value={row.dimension2}
                     onChange={(e) =>
                         dimensionalInputChangeHandler(e, rowIndex, "dimension2")
@@ -58,20 +56,18 @@ const DimensionalRow = ({
                 />
             </td>
             <td>
-                <input
+                <Input
                     className="row__input"
-                    type="text"
                     value={row.sqft}
-                    readOnly
+                    readOnly={true}
                     onChange={(e) =>
                         dimensionalInputChangeHandler(e, rowIndex, "sqft")
                     }
                 />
             </td>
             <td>
-                <input
+                <Input
                     className="row__input"
-                    type="text"
                     value={row.pricePerSqft}
                     onChange={(e) =>
                         dimensionalInputChangeHandler(

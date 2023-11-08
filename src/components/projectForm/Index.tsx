@@ -11,7 +11,6 @@ import { useRouter } from "next/router";
 
 import Modal from "@/subComponents/Modal";
 import Input from "@/subComponents/Input";
-import { paragraphMedium, paragraphSmall } from "@/styles/Type";
 import DimensionalTable from "./DimensionalTable";
 import NondimensionalTable from "./NondimensionalTable";
 import {
