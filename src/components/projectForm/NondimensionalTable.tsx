@@ -1,11 +1,12 @@
 import React, { ChangeEvent, memo } from "react";
 import styled from "styled-components";
 
-import AddButton from "@/subComponents/AddButton";
-import RemoveButton from "@/subComponents/RemoveButton";
 import { Nondimensional } from "@/types/Index";
-import { paragraphMedium, paragraphSmall } from "@/styles/Type";
+import { paragraphLarge, paragraphSmall } from "@/styles/Type";
 import NondimensionalRow from "./NondimensionalRow";
+import IconButton from "@/subComponents/IconButton";
+import Plus from "@/styles/svg/plus.svg";
+import Minus from "@/styles/svg/minus.svg";
 
 interface NondimensionalTableProps {
     nondimensionalFormValues: Nondimensional[];
@@ -25,7 +26,7 @@ const NondimensionalTableCont = styled.div`
             padding: 20px;
         }
         &__title {
-            ${paragraphMedium}
+            ${paragraphLarge}
         }
 
         &__subtitle {
@@ -35,6 +36,12 @@ const NondimensionalTableCont = styled.div`
 
         &__total {
             ${paragraphSmall}
+        }
+
+        &__btn-container {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
         }
     }
 `;
@@ -75,20 +82,21 @@ const NondimensionalTable = memo(
                         })}
                     </tbody>
                 </table>
-                <div
-                    className="table__btn table__btn--add"
-                    onClick={addNonDimensionalRowHandler}
-                >
-                    Add Row <AddButton />
+                <div className="table__btn-container">
+                    <IconButton
+                        text="Add Row"
+                        Icon={Plus}
+                        onClick={addNonDimensionalRowHandler}
+                    />
+
+                    {nondimensionalFormValues.length > 1 && (
+                        <IconButton
+                            text="Remove Row"
+                            Icon={Minus}
+                            onClick={removeNonDimensionalRowHandler}
+                        />
+                    )}
                 </div>
-                {nondimensionalFormValues.length > 1 && (
-                    <div
-                        className="table__btn table__btn--remove"
-                        onClick={removeNonDimensionalRowHandler}
-                    >
-                        Remove Row <RemoveButton />
-                    </div>
-                )}
             </NondimensionalTableCont>
         );
     }

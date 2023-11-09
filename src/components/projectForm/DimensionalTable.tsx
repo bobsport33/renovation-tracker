@@ -1,11 +1,13 @@
 import React, { ChangeEvent, memo } from "react";
 import styled from "styled-components";
 
-import AddButton from "@/subComponents/AddButton";
-import RemoveButton from "@/subComponents/RemoveButton";
 import DimensionalRow from "./DimensionalRow";
 import { Dimensional } from "@/types/Index";
-import { paragraphMedium, paragraphSmall } from "@/styles/Type";
+import { paragraphLarge, paragraphSmall } from "@/styles/Type";
+import { colors } from "@/styles/variables";
+import Plus from "@/styles/svg/plus.svg";
+import Minus from "@/styles/svg/minus.svg";
+import IconButton from "@/subComponents/IconButton";
 
 interface DimensionalTableProps {
     dimensionalFormValues: Dimensional[];
@@ -25,16 +27,38 @@ const DimensionalTableCont = styled.div`
             padding: 20px;
         }
         &__title {
-            ${paragraphMedium}
+            ${paragraphLarge}
         }
 
         &__subtitle {
             ${paragraphSmall}
             text-align: start;
+            color: ${colors.neutral1000};
         }
 
         &__total {
             ${paragraphSmall}
+        }
+
+        &__btn-container {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
+
+        &__btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background-color: ${colors.blue500};
+            color: ${colors.neutral100};
+            ${paragraphSmall}
+            padding: 5px 10px;
+
+            & svg {
+                width: 20px;
+                height: auto;
+            }
         }
     }
 `;
@@ -74,20 +98,21 @@ const DimensionalTable = memo(
                         })}
                     </tbody>
                 </table>
-                <div
-                    className="table__btn table__btn--add"
-                    onClick={addDimensionalRowHandler}
-                >
-                    Add Row <AddButton />
+                <div className="table__btn-container">
+                    <IconButton
+                        text="Add Row"
+                        Icon={Plus}
+                        onClick={addDimensionalRowHandler}
+                    />
+
+                    {dimensionalFormValues.length > 1 && (
+                        <IconButton
+                            text="Remove Row"
+                            Icon={Minus}
+                            onClick={removeDimensionalRowHandler}
+                        />
+                    )}
                 </div>
-                {dimensionalFormValues.length > 1 && (
-                    <div
-                        className="table__btn table__btn--remove"
-                        onClick={removeDimensionalRowHandler}
-                    >
-                        Remove Row <RemoveButton />
-                    </div>
-                )}
             </DimensionalTableCont>
         );
     }

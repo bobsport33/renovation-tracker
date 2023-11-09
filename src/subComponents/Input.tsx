@@ -1,15 +1,15 @@
 import React, { forwardRef } from "react";
 import styled from "styled-components";
 
-import { paragraphMedium } from "@/styles/Type";
+import { paragraphLarge } from "@/styles/Type";
 import { colors } from "@/styles/variables";
 
 interface Input {
     id?: string;
     text?: string;
-    value: string;
+    value?: string;
     readOnly?: boolean;
-    onChange: (e: any) => void;
+    onChange?: (e: any) => void;
     className?: string;
 }
 
@@ -21,7 +21,7 @@ const InputCont = styled.div`
 
     .input {
         &__label {
-            ${paragraphMedium}
+            ${paragraphLarge}
         }
         &__input {
             flex: 1;
