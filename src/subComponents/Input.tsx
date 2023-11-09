@@ -27,6 +27,7 @@ const InputCont = styled.div`
             flex: 1;
             padding: 8px;
             border: 2px solid ${colors.neutral500};
+            width: 100%;
         }
     }
 `;

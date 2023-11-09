@@ -21,7 +21,7 @@ import {
 } from "@/utils/auth";
 import { Dimensional, Nondimensional, Project } from "@/types/Index";
 import { paragraphMedium, paragraphSmall } from "@/styles/Type";
-import { colors } from "@/styles/variables";
+import { colors, media } from "@/styles/variables";
 
 interface Props {
     email?: string;
@@ -37,6 +37,10 @@ const ProjectFormCont = styled.div`
 
     .project {
         width: 85%;
+
+        @media ${media.tablet} {
+            width: 90%;
+        }
 
         &__form {
             display: flex;

@@ -7,6 +7,7 @@ import NondimensionalRow from "./NondimensionalRow";
 import IconButton from "@/subComponents/IconButton";
 import Plus from "@/styles/svg/plus.svg";
 import Minus from "@/styles/svg/minus.svg";
+import { media } from "@/styles/variables";
 
 interface NondimensionalTableProps {
     nondimensionalFormValues: Nondimensional[];
@@ -24,6 +25,10 @@ const NondimensionalTableCont = styled.div`
         &__table {
             width: 80%;
             padding: 20px;
+
+            @media ${media.tablet} {
+                padding: 10px;
+            }
         }
         &__title {
             ${paragraphLarge}
@@ -43,6 +48,10 @@ const NondimensionalTableCont = styled.div`
             flex-direction: row;
             gap: 15px;
             padding: 0 20px;
+
+            @media ${media.tablet} {
+                padding: 0 10px;
+            }
         }
     }
 `;

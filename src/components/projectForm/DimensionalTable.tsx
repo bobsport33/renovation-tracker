@@ -4,7 +4,7 @@ import styled from "styled-components";
 import DimensionalRow from "./DimensionalRow";
 import { Dimensional } from "@/types/Index";
 import { paragraphLarge, paragraphSmall } from "@/styles/Type";
-import { colors } from "@/styles/variables";
+import { colors, media } from "@/styles/variables";
 import Plus from "@/styles/svg/plus.svg";
 import Minus from "@/styles/svg/minus.svg";
 import IconButton from "@/subComponents/IconButton";
@@ -21,10 +21,18 @@ interface DimensionalTableProps {
 }
 
 const DimensionalTableCont = styled.div`
-    .table {
-        &__table {
+    .grid {
+        &__grid {
             width: 100%;
             padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            column-gap: 10px;
+            row-gap: 5px;
+
+            @media ${media.tablet} {
+                padding: 10px;
+            }
         }
         &__title {
             ${paragraphLarge}
@@ -36,6 +44,10 @@ const DimensionalTableCont = styled.div`
             color: ${colors.neutral1000};
         }
 
+        &__row {
+            grid-column: 1 / 6;
+        }
+
         &__total {
             ${paragraphSmall}
         }
@@ -45,6 +57,10 @@ const DimensionalTableCont = styled.div`
             flex-direction: row;
             gap: 15px;
             padding: 0 20px;
+
+            @media ${media.tablet} {
+                padding: 0 10px;
+            }
         }
     }
 `;
@@ -58,33 +74,30 @@ const DimensionalTable = memo(
     }: DimensionalTableProps) => {
         return (
             <DimensionalTableCont>
-                <p className="table__title">Dimensional Material Calculator</p>
-                <table className="table__table">
-                    <thead>
-                        <tr>
-                            <th className="table__subtitle">Material</th>
-                            <th className="table__subtitle">Dimension 1</th>
-                            <th className="table__subtitle">Dimension 2</th>
-                            <th className="table__subtitle">Est. SqFt</th>
-                            <th className="table__subtitle">Price per SqFt</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {dimensionalFormValues.map((row, rowIndex) => {
-                            return (
-                                <DimensionalRow
-                                    key={rowIndex}
-                                    rowIndex={rowIndex}
-                                    row={row}
-                                    dimensionalInputChangeHandler={
-                                        dimensionalInputChangeHandler
-                                    }
-                                />
-                            );
-                        })}
-                    </tbody>
-                </table>
-                <div className="table__btn-container">
+                <p className="grid__title">Dimensional Material Calculator</p>
+                {/* Need to adjust from a table to a grid. Make the subtitles 1 cell each, make the rows a flex row with the same spacing as the grid and make the rows 1 / 6 */}
+                <div className="grid__grid">
+                    <p className="grid__subtitle">Material</p>
+                    <p className="grid__subtitle">Dimension 1</p>
+                    <p className="grid__subtitle">Dimension 2</p>
+                    <p className="grid__subtitle">Est. SqFt</p>
+                    <p className="grid__subtitle">Price per SqFt</p>
+
+                    {dimensionalFormValues.map((row, rowIndex) => {
+                        return (
+                            <DimensionalRow
+                                className="grid__row"
+                                key={rowIndex}
+                                rowIndex={rowIndex}
+                                row={row}
+                                dimensionalInputChangeHandler={
+                                    dimensionalInputChangeHandler
+                                }
+                            />
+                        );
+                    })}
+                </div>
+                <div className="grid__btn-container">
                     <IconButton
                         text="Add Row"
                         Icon={Plus}

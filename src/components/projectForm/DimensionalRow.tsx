@@ -4,6 +4,7 @@ import { Dimensional } from "@/types/Index";
 import Input from "@/subComponents/Input";
 
 interface DimensionalRowProps {
+    className?: string;
     rowIndex: number;
     row: Dimensional;
     dimensionalInputChangeHandler: (
@@ -14,6 +15,9 @@ interface DimensionalRowProps {
 }
 
 const DimensionalRowCont = styled.tr`
+    display: flex;
+    gap: 10px;
+
     .row {
         &__input {
             width: 100%;
@@ -22,62 +26,53 @@ const DimensionalRowCont = styled.tr`
 `;
 
 const DimensionalRow = ({
+    className,
     rowIndex,
     row,
     dimensionalInputChangeHandler,
 }: DimensionalRowProps) => {
     return (
-        <DimensionalRowCont>
-            <td>
-                <Input
-                    className="row__input"
-                    value={row.material}
-                    onChange={(e) =>
-                        dimensionalInputChangeHandler(e, rowIndex, "material")
-                    }
-                />
-            </td>
-            <td>
-                <Input
-                    className="row__input"
-                    value={row.dimension1}
-                    onChange={(e) =>
-                        dimensionalInputChangeHandler(e, rowIndex, "dimension1")
-                    }
-                />
-            </td>
-            <td>
-                <Input
-                    className="row__input"
-                    value={row.dimension2}
-                    onChange={(e) =>
-                        dimensionalInputChangeHandler(e, rowIndex, "dimension2")
-                    }
-                />
-            </td>
-            <td>
-                <Input
-                    className="row__input"
-                    value={row.sqft}
-                    readOnly={true}
-                    onChange={(e) =>
-                        dimensionalInputChangeHandler(e, rowIndex, "sqft")
-                    }
-                />
-            </td>
-            <td>
-                <Input
-                    className="row__input"
-                    value={row.pricePerSqft}
-                    onChange={(e) =>
-                        dimensionalInputChangeHandler(
-                            e,
-                            rowIndex,
-                            "pricePerSqft"
-                        )
-                    }
-                />
-            </td>
+        <DimensionalRowCont className={className}>
+            <Input
+                className="row__input"
+                value={row.material}
+                onChange={(e) =>
+                    dimensionalInputChangeHandler(e, rowIndex, "material")
+                }
+            />
+
+            <Input
+                className="row__input"
+                value={row.dimension1}
+                onChange={(e) =>
+                    dimensionalInputChangeHandler(e, rowIndex, "dimension1")
+                }
+            />
+
+            <Input
+                className="row__input"
+                value={row.dimension2}
+                onChange={(e) =>
+                    dimensionalInputChangeHandler(e, rowIndex, "dimension2")
+                }
+            />
+
+            <Input
+                className="row__input"
+                value={row.sqft}
+                readOnly={true}
+                onChange={(e) =>
+                    dimensionalInputChangeHandler(e, rowIndex, "sqft")
+                }
+            />
+
+            <Input
+                className="row__input"
+                value={row.pricePerSqft}
+                onChange={(e) =>
+                    dimensionalInputChangeHandler(e, rowIndex, "pricePerSqft")
+                }
+            />
         </DimensionalRowCont>
     );
 };
