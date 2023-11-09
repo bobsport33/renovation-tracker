@@ -43,22 +43,8 @@ const DimensionalTableCont = styled.div`
         &__btn-container {
             display: flex;
             flex-direction: row;
-            gap: 10px;
-        }
-
-        &__btn {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background-color: ${colors.blue500};
-            color: ${colors.neutral100};
-            ${paragraphSmall}
-            padding: 5px 10px;
-
-            & svg {
-                width: 20px;
-                height: auto;
-            }
+            gap: 15px;
+            padding: 0 20px;
         }
     }
 `;

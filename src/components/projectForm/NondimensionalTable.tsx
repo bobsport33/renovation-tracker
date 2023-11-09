@@ -41,7 +41,8 @@ const NondimensionalTableCont = styled.div`
         &__btn-container {
             display: flex;
             flex-direction: row;
-            gap: 10px;
+            gap: 15px;
+            padding: 0 20px;
         }
     }
 `;

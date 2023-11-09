@@ -6,8 +6,8 @@ import { paragraphSmall } from "@/styles/Type";
 
 interface IconBtnProps {
     text: string;
-    Icon: React.ElementType;
-    onClick: () => void;
+    Icon?: React.ElementType;
+    onClick?: () => void;
     color: string;
 }
 
@@ -113,9 +113,7 @@ const IconButton = ({ text, Icon, onClick, color }: IconBtnProps) => {
         <IconButtonCont onClick={onClick} color={color}>
             <div className="btn__background"></div>
             <p className="btn__text">{text}</p>
-            <div className="btn__icon">
-                <Icon />
-            </div>
+            <div className="btn__icon">{Icon && <Icon />}</div>
         </IconButtonCont>
     );
 };

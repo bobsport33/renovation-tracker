@@ -20,6 +20,8 @@ import {
     deleteProject,
 } from "@/utils/auth";
 import { Dimensional, Nondimensional, Project } from "@/types/Index";
+import { paragraphMedium } from "@/styles/Type";
+import IconButton from "@/subComponents/IconButton";
 
 interface Props {
     email?: string;
@@ -45,11 +47,23 @@ const ProjectFormCont = styled.div`
         &__name {
             width: 40%;
         }
+
+        &__total-container {
+            align-self: flex-end;
+        }
+        &__total {
+            ${paragraphMedium}
+        }
+
+        &__btn {
+            &--delete {
+                align-self: flex-end;
+            }
+        }
     }
 `;
 
 const ProjectForm = ({ email, project }: Props) => {
-    console.log("index");
     const router = useRouter();
     const [dimensionalFormValues, setDimensionalFormValues] = useState(
         project?.project.dimensionalMaterial
@@ -268,13 +282,21 @@ const ProjectForm = ({ email, project }: Props) => {
                         }
                     />
                     <hr />
-                    <button>Save</button>
-
-                    <p className="project__total">
-                        Total Price: ${totalPrice.toFixed(2)}
-                    </p>
+                    <div className="project__total-container">
+                        <p className="project__total">
+                            Total Price: ${totalPrice.toFixed(2)}
+                        </p>
+                        <button className="project__btn project__btn--save">
+                            Save
+                        </button>
+                    </div>
+                    <div
+                        className="project__btn project__btn--delete"
+                        onClick={deleteProjectHandler}
+                    >
+                        Delete Project
+                    </div>
                 </form>
-                <button onClick={deleteProjectHandler}>Delete</button>
             </Modal>
         </ProjectFormCont>
     );
