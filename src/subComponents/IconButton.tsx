@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { colors } from "@/styles/variables";
 import { paragraphSmall } from "@/styles/Type";
@@ -8,6 +8,7 @@ interface IconBtnProps {
     text: string;
     Icon: React.ElementType;
     onClick: () => void;
+    color: string;
 }
 
 const IconButtonCont = styled.div`
@@ -31,7 +32,17 @@ const IconButtonCont = styled.div`
             position: absolute;
             top: 0;
             left: 0;
-            background-color: ${colors.blue500};
+            ${({ color }) => {
+                if (color === "blue") {
+                    return css`
+                        background-color: ${colors.blue500};
+                    `;
+                } else {
+                    return css`
+                        background-color: ${colors.red600};
+                    `;
+                }
+            }}
 
             &::after {
                 content: "";
@@ -40,9 +51,21 @@ const IconButtonCont = styled.div`
                 position: absolute;
                 top: 0;
                 left: 0;
-                background-color: ${colors.blue600};
+
                 transition: transform 0.5s ease-in-out;
                 transform: translateX(100%);
+
+                ${({ color }) => {
+                    if (color === "blue") {
+                        return css`
+                            background-color: ${colors.blue600};
+                        `;
+                    } else {
+                        return css`
+                            background-color: ${colors.red700};
+                        `;
+                    }
+                }}
             }
         }
         &__text {
@@ -53,7 +76,18 @@ const IconButtonCont = styled.div`
         }
 
         &__icon {
-            background-color: ${colors.blue600};
+            ${({ color }) => {
+                if (color === "blue") {
+                    return css`
+                        background-color: ${colors.blue600};
+                    `;
+                } else {
+                    return css`
+                        background-color: ${colors.red700};
+                    `;
+                }
+            }}
+
             height: 100%;
             display: flex;
             justify-content: center;
@@ -64,6 +98,7 @@ const IconButtonCont = styled.div`
             & svg {
                 width: 20px;
                 height: auto;
+                pointer-events: none;
             }
         }
     }
@@ -73,9 +108,9 @@ const IconButtonCont = styled.div`
     }
 `;
 
-const IconButton = ({ text, Icon, onClick }: IconBtnProps) => {
+const IconButton = ({ text, Icon, onClick, color }: IconBtnProps) => {
     return (
-        <IconButtonCont onClick={onClick}>
+        <IconButtonCont onClick={onClick} color={color}>
             <div className="btn__background"></div>
             <p className="btn__text">{text}</p>
             <div className="btn__icon">

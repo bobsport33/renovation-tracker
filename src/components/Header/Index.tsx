@@ -5,7 +5,6 @@ import { useSession, signOut } from "next-auth/react";
 
 import { colors } from "@/styles/variables";
 import { paragraphLarge, paragraphMedium } from "@/styles/Type";
-import AddButton from "@/subComponents/AddButton";
 
 const HeaderCont = styled.header`
     width: 100%;
@@ -103,7 +102,7 @@ const Header = () => {
                             className="header__link"
                             href="/projects/new-project"
                         >
-                            New Projects <AddButton />
+                            New Projects
                         </Link>
                     )}
                 </div>

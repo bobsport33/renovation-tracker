@@ -19,7 +19,7 @@ const GlobalStyles = createGlobalStyle`
     body {
     color: rgb(var(--foreground-rgb));
     background: ${colors.neutral100};
-    margin-top: 120px;
+    margin-top: 102px;
     }
 
     a {

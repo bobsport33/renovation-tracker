@@ -27,9 +27,11 @@ interface Props {
 }
 
 const ProjectFormCont = styled.div`
-    margin: 120px auto;
+    margin: 20px auto;
+    height: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
 
     .project {
         width: 85%;
@@ -265,6 +267,7 @@ const ProjectForm = ({ email, project }: Props) => {
                             removeNonDimensionalRowHandler
                         }
                     />
+                    <hr />
                     <button>Save</button>
 
                     <p className="project__total">

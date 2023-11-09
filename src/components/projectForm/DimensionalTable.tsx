@@ -103,6 +103,7 @@ const DimensionalTable = memo(
                         text="Add Row"
                         Icon={Plus}
                         onClick={addDimensionalRowHandler}
+                        color="blue"
                     />
 
                     {dimensionalFormValues.length > 1 && (
@@ -110,6 +111,7 @@ const DimensionalTable = memo(
                             text="Remove Row"
                             Icon={Minus}
                             onClick={removeDimensionalRowHandler}
+                            color="red"
                         />
                     )}
                 </div>

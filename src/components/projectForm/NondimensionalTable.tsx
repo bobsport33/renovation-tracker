@@ -87,6 +87,7 @@ const NondimensionalTable = memo(
                         text="Add Row"
                         Icon={Plus}
                         onClick={addNonDimensionalRowHandler}
+                        color="blue"
                     />
 
                     {nondimensionalFormValues.length > 1 && (
@@ -94,6 +95,7 @@ const NondimensionalTable = memo(
                             text="Remove Row"
                             Icon={Minus}
                             onClick={removeNonDimensionalRowHandler}
+                            color="red"
                         />
                     )}
                 </div>
