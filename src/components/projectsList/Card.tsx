@@ -44,10 +44,10 @@ const ProjectCard = ({ projectProps }: ProjectProps) => {
         <ProjectCardCont href={`/projects/${projectProps.project._id}`}>
             <div className="card__cont">
                 <h6 className="card__heading">
-                    {projectProps.project.projectName}{" "}
+                    {projectProps.project.projectName}
                 </h6>
                 <span className="card__cost">
-                    Cost - ${projectProps.project.totalPrice}
+                    Cost - ${projectProps.project.totalPrice.toFixed(2)}
                 </span>
             </div>
         </ProjectCardCont>

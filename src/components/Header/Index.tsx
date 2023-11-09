@@ -39,6 +39,25 @@ const HeaderCont = styled.header`
             flex-direction: row;
             align-items: center;
             gap: 8px;
+            color: ${colors.neutral1000};
+            position: relative;
+
+            &::after {
+                content: "";
+                height: 2px;
+                width: 0%;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                background-color: ${colors.neutral1000};
+                transition: width 0.3s;
+            }
+
+            &:hover {
+                &::after {
+                    width: 100%;
+                }
+            }
 
             &--signout {
                 border: none;
@@ -47,6 +66,9 @@ const HeaderCont = styled.header`
                 background-color: ${colors.neutral100};
                 transition: background-color 0.3s;
 
+                &::after {
+                    display: none;
+                }
                 &:hover {
                     background-color: ${colors.neutral200};
                     cursor: pointer;
@@ -66,14 +88,6 @@ const Header = () => {
                     <h6>Renovation Estimator</h6>
                 </Link>
                 <div className="header__links">
-                    {session && (
-                        <button
-                            className="header__link header__link--signout"
-                            onClick={() => signOut()}
-                        >
-                            Sign out
-                        </button>
-                    )}
                     {!session && (
                         <Link
                             className="header__link"
@@ -104,6 +118,14 @@ const Header = () => {
                         >
                             New Projects
                         </Link>
+                    )}
+                    {session && (
+                        <button
+                            className="header__link header__link--signout"
+                            onClick={() => signOut()}
+                        >
+                            Sign out
+                        </button>
                     )}
                 </div>
             </div>

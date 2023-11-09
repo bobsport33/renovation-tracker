@@ -20,8 +20,8 @@ import {
     deleteProject,
 } from "@/utils/auth";
 import { Dimensional, Nondimensional, Project } from "@/types/Index";
-import { paragraphMedium } from "@/styles/Type";
-import IconButton from "@/subComponents/IconButton";
+import { paragraphMedium, paragraphSmall } from "@/styles/Type";
+import { colors } from "@/styles/variables";
 
 interface Props {
     email?: string;
@@ -50,14 +50,41 @@ const ProjectFormCont = styled.div`
 
         &__total-container {
             align-self: flex-end;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
         }
         &__total {
             ${paragraphMedium}
         }
 
+        &__btn-container {
+            display: flex;
+            gap: 10px;
+        }
         &__btn {
+            border: 2px solid ${colors.blue500};
+            border-radius: 5px;
+            padding: 5px 10px;
+            ${paragraphSmall};
+            background-color: transparent;
+            color: ${colors.neutral1000};
+            transition: background-color 0.3s, color 0.3s;
+
+            &:hover {
+                cursor: pointer;
+                background-color: ${colors.blue500};
+                color: ${colors.neutral100};
+            }
             &--delete {
                 align-self: flex-end;
+                border: 2px solid ${colors.red600};
+
+                &:hover {
+                    background-color: ${colors.red600};
+                    color: ${colors.neutral100};
+                }
             }
         }
     }
@@ -281,20 +308,22 @@ const ProjectForm = ({ email, project }: Props) => {
                             removeNonDimensionalRowHandler
                         }
                     />
-                    <hr />
+
                     <div className="project__total-container">
                         <p className="project__total">
                             Total Price: ${totalPrice.toFixed(2)}
                         </p>
-                        <button className="project__btn project__btn--save">
-                            Save
-                        </button>
-                    </div>
-                    <div
-                        className="project__btn project__btn--delete"
-                        onClick={deleteProjectHandler}
-                    >
-                        Delete Project
+                        <div className="project__btn-container">
+                            <button className="project__btn project__btn--save">
+                                Save
+                            </button>
+                            <div
+                                className="project__btn project__btn--delete"
+                                onClick={deleteProjectHandler}
+                            >
+                                Delete Project
+                            </div>
+                        </div>
                     </div>
                 </form>
             </Modal>

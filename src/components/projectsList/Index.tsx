@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import Link from "next/link";
 
 import Modal from "@/subComponents/Modal";
 import ProjectCard from "./Card";
-import { paragraphLarge, paragraphMedium } from "@/styles/Type";
+import { paragraphLarge } from "@/styles/Type";
 import { colors } from "@/styles/variables";
 
 interface DimensionalMaterial {
@@ -61,7 +60,7 @@ const ProjectsListCont = styled.div`
         }
 
         &__total {
-            ${paragraphMedium}
+            ${paragraphLarge}
             align-self: flex-end;
         }
     }
@@ -81,7 +80,6 @@ const ProjectsList = ({ email, projects }: Props) => {
                 <h1 className="projects__heading">Projects</h1>
                 <div className="projects__container">
                     {projects.map((project) => {
-                        // console.log(project);
                         return (
                             <ProjectCard
                                 key={project.project._id}
