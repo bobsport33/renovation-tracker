@@ -53,8 +53,9 @@ const ProjectsListCont = styled.div`
         }
 
         &__container {
+            width: 40%;
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             flex-wrap: wrap;
             gap: 20px;
         }

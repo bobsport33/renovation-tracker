@@ -14,9 +14,9 @@ interface DimensionalRowProps {
     ) => void;
 }
 
-const DimensionalRowCont = styled.tr`
+const DimensionalRowCont = styled.div`
     display: flex;
-    gap: 10px;
+    gap: 5px;
 
     .row {
         &__input {

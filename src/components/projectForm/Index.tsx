@@ -5,6 +5,7 @@ import React, {
     useState,
     useEffect,
     useCallback,
+    MouseEvent,
 } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
@@ -13,6 +14,7 @@ import Modal from "@/subComponents/Modal";
 import Input from "@/subComponents/Input";
 import DimensionalTable from "./DimensionalTable";
 import NondimensionalTable from "./NondimensionalTable";
+import Button from "@/subComponents/Button";
 import {
     createProject,
     updateUser,
@@ -231,12 +233,14 @@ const ProjectForm = ({ email, project }: Props) => {
         });
     };
 
-    const deleteProjectHandler = async () => {
-        if (email && project?.project._id) {
-            const result = await deleteProject(email, project.project._id);
+    const deleteProjectHandler = async (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        // if (email && project?.project._id) {
+        //     const result = await deleteProject(email, project.project._id);
 
-            router.push("/projects");
-        }
+        //     router.push("/projects");
+        // }
+        console.log("delete button pushed");
     };
 
     const formSubmitHandler = async (e: FormEvent) => {
@@ -318,15 +322,12 @@ const ProjectForm = ({ email, project }: Props) => {
                             Total Price: ${totalPrice.toFixed(2)}
                         </p>
                         <div className="project__btn-container">
-                            <button className="project__btn project__btn--save">
-                                Save
-                            </button>
-                            <div
-                                className="project__btn project__btn--delete"
+                            <Button text="Save" color="blue" />
+                            <Button
+                                text="Delete Project"
                                 onClick={deleteProjectHandler}
-                            >
-                                Delete Project
-                            </div>
+                                color="red"
+                            />
                         </div>
                     </div>
                 </form>

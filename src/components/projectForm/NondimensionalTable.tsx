@@ -21,15 +21,23 @@ interface NondimensionalTableProps {
 }
 
 const NondimensionalTableCont = styled.div`
-    .table {
-        &__table {
+    .grid {
+        &__grid {
             width: 80%;
             padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            column-gap: 5px;
+            row-gap: 5px;
 
             @media ${media.tablet} {
                 padding: 10px;
             }
         }
+        &__row {
+            grid-column: 1 / 5;
+        }
+
         &__title {
             ${paragraphLarge}
         }
@@ -65,34 +73,30 @@ const NondimensionalTable = memo(
     }: NondimensionalTableProps) => {
         return (
             <NondimensionalTableCont>
-                <p className="table__title">
+                <p className="grid__title">
                     Non Dimensionsal Material Calculator
                 </p>
-                <table className="table__table">
-                    <thead>
-                        <tr>
-                            <th className="table__subtitle">Material</th>
-                            <th className="table__subtitle">Size</th>
-                            <th className="table__subtitle">Quantity</th>
-                            <th className="table__subtitle">Price per Unit</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {nondimensionalFormValues.map((row, rowIndex) => {
-                            return (
-                                <NondimensionalRow
-                                    key={rowIndex}
-                                    rowIndex={rowIndex}
-                                    row={row}
-                                    nondimensionalInputChangeHandler={
-                                        nondimensionalInputChangeHandler
-                                    }
-                                />
-                            );
-                        })}
-                    </tbody>
-                </table>
-                <div className="table__btn-container">
+                <div className="grid__grid">
+                    <p className="grid__subtitle">Material</p>
+                    <p className="grid__subtitle">Size</p>
+                    <p className="grid__subtitle">Quantity</p>
+                    <p className="grid__subtitle">Price per Unit</p>
+
+                    {nondimensionalFormValues.map((row, rowIndex) => {
+                        return (
+                            <NondimensionalRow
+                                key={rowIndex}
+                                rowIndex={rowIndex}
+                                row={row}
+                                nondimensionalInputChangeHandler={
+                                    nondimensionalInputChangeHandler
+                                }
+                                className="grid__row"
+                            />
+                        );
+                    })}
+                </div>
+                <div className="grid__btn-container">
                     <IconButton
                         text="Add Row"
                         Icon={Plus}

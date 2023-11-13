@@ -27,7 +27,7 @@ const DimensionalTableCont = styled.div`
             padding: 20px;
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            column-gap: 10px;
+            column-gap: 5px;
             row-gap: 5px;
 
             @media ${media.tablet} {
