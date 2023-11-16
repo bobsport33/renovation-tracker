@@ -4,6 +4,7 @@ import Head from "next/head";
 import Hero from "@/components/hero/Index";
 import InfoCards from "@/components/infoCards/Index";
 import AppContent from "@/components/appContent/Index";
+import CTA from "@/components/cta/Index";
 
 export default function Home() {
     return (
@@ -23,6 +24,7 @@ export default function Home() {
             <Hero />
             <InfoCards />
             <AppContent />
+            <CTA />
         </>
     );
 }
