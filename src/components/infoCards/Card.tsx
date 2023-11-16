@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Image from "next/image";
 
 import { paragraphMedium } from "@/styles/Type";
 import { colors } from "@/styles/variables";
@@ -38,7 +39,13 @@ const CardCont = styled.div`
 const Card = ({ imageUrl, imageAlt, title, description }: CardProps) => {
     return (
         <CardCont>
-            <img src={imageUrl} alt={imageAlt} className="card__image" />
+            <Image
+                src={imageUrl}
+                alt={imageAlt}
+                className="card__image"
+                width={370}
+                height={245}
+            />
             <h5 className="card__heading">{title}</h5>
             <p className="card__description">{description}</p>
         </CardCont>

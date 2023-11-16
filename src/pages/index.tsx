@@ -3,6 +3,7 @@ import Head from "next/head";
 
 import Hero from "@/components/hero/Index";
 import InfoCards from "@/components/infoCards/Index";
+import AppContent from "@/components/appContent/Index";
 
 export default function Home() {
     return (
@@ -21,6 +22,7 @@ export default function Home() {
             </Head>
             <Hero />
             <InfoCards />
+            <AppContent />
         </>
     );
 }
