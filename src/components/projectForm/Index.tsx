@@ -31,11 +31,11 @@ interface Props {
 }
 
 const ProjectFormCont = styled.div`
-    margin: 20px auto;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 30px auto;
 
     .project {
         width: 85%;
@@ -55,6 +55,7 @@ const ProjectFormCont = styled.div`
         }
 
         &__total-container {
+            padding: 0 20px;
             align-self: flex-end;
             display: flex;
             flex-direction: column;
@@ -98,6 +99,7 @@ const ProjectFormCont = styled.div`
 
 const ProjectForm = ({ email, project }: Props) => {
     const router = useRouter();
+    const [isSaving, setIsSaving] = useState(false);
     const [dimensionalFormValues, setDimensionalFormValues] = useState(
         project?.project.dimensionalMaterial
             ? project.project.dimensionalMaterial
@@ -235,16 +237,16 @@ const ProjectForm = ({ email, project }: Props) => {
 
     const deleteProjectHandler = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        // if (email && project?.project._id) {
-        //     const result = await deleteProject(email, project.project._id);
+        if (email && project?.project._id) {
+            const result = await deleteProject(email, project.project._id);
 
-        //     router.push("/projects");
-        // }
-        console.log("delete button pushed");
+            router.push("/projects");
+        }
     };
 
     const formSubmitHandler = async (e: FormEvent) => {
         e.preventDefault();
+        setIsSaving(true);
         let name;
 
         if (projectName.current && email) {
@@ -278,6 +280,8 @@ const ProjectForm = ({ email, project }: Props) => {
                 nondimensionalFormValues,
                 totalPrice
             );
+
+            setIsSaving(false);
         }
     };
 

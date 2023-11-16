@@ -15,7 +15,7 @@ interface NondimensionalRowProps {
     className: string;
 }
 
-const NondimensionalRowCont = styled.tr`
+const NondimensionalRowCont = styled.div`
     display: flex;
     gap: 5px;
 

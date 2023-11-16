@@ -11,6 +11,8 @@ interface ProjectProps {
 }
 
 const ProjectCardCont = styled(Link)`
+    width: 100%;
+
     &:hover {
         .card {
             &__cont {

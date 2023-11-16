@@ -25,27 +25,26 @@ export const getServerSideProps = async (
 
     const email = session?.user?.email;
 
-    const response = await axios.post(
-        "http://localhost:3000/api/auth/getProjects",
-        {
-            body: JSON.stringify({
-                email,
-            }),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }
-    );
-    const projects = response.data.projects;
-
-    const fullProjects = await Promise.all(
-        projects.map(async (project: string) => {
-            const projectDetails = await getProjectById(project);
-            return projectDetails;
-        })
-    );
-
     if (session) {
+        const response = await axios.post(
+            "http://localhost:3000/api/auth/getProjects",
+            {
+                body: JSON.stringify({
+                    email,
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+        const projects = response.data.projects;
+
+        const fullProjects = await Promise.all(
+            projects.map(async (project: string) => {
+                const projectDetails = await getProjectById(project);
+                return projectDetails;
+            })
+        );
         return {
             props: { email: email, projects: fullProjects },
         };

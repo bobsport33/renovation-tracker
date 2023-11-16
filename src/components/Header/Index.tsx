@@ -5,12 +5,13 @@ import { useSession, signOut } from "next-auth/react";
 
 import { colors } from "@/styles/variables";
 import { paragraphLarge, paragraphMedium } from "@/styles/Type";
+import Button from "@/subComponents/Button";
 
 const HeaderCont = styled.header`
     width: 100%;
-    position: fixed;
+    /* position: fixed;
     top: 0;
-    left: 0;
+    left: 0; */
     background-color: ${colors.red200};
 
     .header {
@@ -60,19 +61,7 @@ const HeaderCont = styled.header`
             }
 
             &--signout {
-                border: none;
-                padding: 8px;
-                border-radius: 8px;
-                background-color: ${colors.neutral100};
-                transition: background-color 0.3s;
-
-                &::after {
-                    display: none;
-                }
-                &:hover {
-                    background-color: ${colors.neutral200};
-                    cursor: pointer;
-                }
+                ${paragraphMedium}
             }
         }
     }
@@ -120,12 +109,11 @@ const Header = () => {
                         </Link>
                     )}
                     {session && (
-                        <button
-                            className="header__link header__link--signout"
-                            onClick={() => signOut()}
-                        >
-                            Sign out
-                        </button>
+                        <Button
+                            text="Sign Out"
+                            onClick={() => signOut({ callbackUrl: "/" })}
+                            className="header__link--signout"
+                        />
                     )}
                 </div>
             </div>

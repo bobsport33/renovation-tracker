@@ -8,27 +8,40 @@ interface ButtonProps {
     text: string;
     onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
     color?: string;
+    className?: string;
+    type?: "button" | "reset" | "submit";
 }
 
 const ButtonCont = styled.button`
-    border: 2px solid ${colors.blue500};
     border-radius: 5px;
     padding: 5px 10px;
     ${paragraphSmall};
-    background-color: transparent;
-    color: ${colors.neutral1000};
+    border: none;
     transition: background-color 0.3s, color 0.3s;
+    background-color: ${colors.neutral100};
+    color: ${colors.neutral1000};
 
     &:hover {
+        background-color: ${colors.neutral200};
         cursor: pointer;
-        background-color: ${colors.blue500};
-        color: ${colors.neutral100};
     }
 
     ${({ color }) => {
-        if (color === "red") {
+        if (color === "blue") {
+            return css`
+                border: 2px solid ${colors.blue500};
+                color: ${colors.neutral1000};
+                background-color: transparent;
+
+                &:hover {
+                    background-color: ${colors.blue500};
+                    color: ${colors.neutral100};
+                }
+            `;
+        } else if (color === "red") {
             return css`
                 border: 2px solid ${colors.red600};
+                background-color: transparent;
 
                 &:hover {
                     background-color: ${colors.red600};
@@ -39,9 +52,14 @@ const ButtonCont = styled.button`
     }}
 `;
 
-const Button = ({ text, onClick, color }: ButtonProps) => {
+const Button = ({ text, onClick, color, className, type }: ButtonProps) => {
     return (
-        <ButtonCont onClick={onClick} color={color}>
+        <ButtonCont
+            onClick={onClick}
+            color={color}
+            className={className}
+            type={type}
+        >
             {text}
         </ButtonCont>
     );

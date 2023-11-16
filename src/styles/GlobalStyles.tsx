@@ -19,7 +19,6 @@ const GlobalStyles = createGlobalStyle`
     body {
     color: rgb(var(--foreground-rgb));
     background: ${colors.neutral100};
-    margin-top: 102px;
     }
 
     a {
@@ -114,8 +113,8 @@ const GlobalStyles = createGlobalStyle`
     .h5 {
         font-family: ${fonts.poppins};
         font-weight: 400;
-        font-size: 2.4rem;
-        line-height: 2.6rem;
+        font-size: 3rem;
+        line-height: 3.6rem;
         text-transform: uppercase;
         @media ${media.tablet} {
             font-size: 2.2rem;

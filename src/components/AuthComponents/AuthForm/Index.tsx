@@ -6,27 +6,42 @@ import { useRouter } from "next/router";
 import { colors } from "@/styles/variables";
 import Input from "@/subComponents/Input";
 import { createUser } from "@/utils/auth";
+import Button from "@/subComponents/Button";
+import IconButton from "@/subComponents/IconButton";
 
 interface props {
     state: string;
 }
 
 const AuthFormCont = styled.section`
-    margin: 0 auto;
-    width: 40%;
-    padding: 30px;
-    border-radius: 30px;
-    background-color: ${colors.neutral200};
     display: flex;
-    flex-direction: column;
-    gap: 24px;
+    justify-content: center;
     align-items: center;
+    margin: 30px auto;
 
-    .form__form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
+    .form {
+        &__container {
+            margin: 0 auto;
+            width: 40%;
+            padding: 30px;
+            border-radius: 30px;
+            background-color: ${colors.neutral200};
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: center;
+        }
+        &__form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        &__btn-container {
+            display: flex;
+            gap: 15px;
+        }
     }
 `;
 
@@ -86,36 +101,46 @@ const AuthForm = ({ state }: props) => {
 
     return (
         <AuthFormCont>
-            <h1 className="form__heading">{isLogin ? "Login" : "Sign Up"}</h1>
-            <form className="form__form" onSubmit={submitHandler}>
-                <Input id="email" text="Email" ref={email} />
-                <Input id="password" text="Password" ref={password} />
+            <div className="form__container">
+                <h1 className="form__heading">
+                    {isLogin ? "Login" : "Sign Up"}
+                </h1>
+                <form className="form__form" onSubmit={submitHandler}>
+                    <Input id="email" text="Email" ref={email} />
+                    <Input id="password" text="Password" ref={password} />
 
-                {!isLogin && (
-                    <>
-                        <Input
-                            id="firstName"
-                            text="First Name"
-                            ref={firstName}
+                    {!isLogin && (
+                        <>
+                            <Input
+                                id="firstName"
+                                text="First Name"
+                                ref={firstName}
+                            />
+                            <Input
+                                id="lastName"
+                                text="Last Name"
+                                ref={lastName}
+                            />
+                        </>
+                    )}
+                    <div className="form__btn-container">
+                        <Button
+                            text={isLogin ? "Login" : "Create Account"}
+                            color="blue"
                         />
-                        <Input id="lastName" text="Last Name" ref={lastName} />
-                    </>
-                )}
-                <div className="btn-container">
-                    <button className="form__btn form__btn--submit">
-                        {isLogin ? "Login" : "Create Account"}
-                    </button>
-                    <button
-                        className="form__btn"
-                        type="button"
-                        onClick={switchModeHandler}
-                    >
-                        {isLogin
-                            ? "Create new accout"
-                            : "Login with existing account"}
-                    </button>
-                </div>
-            </form>
+                        <Button
+                            text={
+                                isLogin
+                                    ? "Create new account"
+                                    : "Login with existing account"
+                            }
+                            className="form__btn"
+                            onClick={switchModeHandler}
+                            type="button"
+                        />
+                    </div>
+                </form>
+            </div>
         </AuthFormCont>
     );
 };

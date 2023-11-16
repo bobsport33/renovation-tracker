@@ -3,8 +3,9 @@ import styled from "styled-components";
 
 import Modal from "@/subComponents/Modal";
 import ProjectCard from "./Card";
-import { paragraphLarge } from "@/styles/Type";
+import { paragraphLarge, paragraphMedium } from "@/styles/Type";
 import { colors } from "@/styles/variables";
+import Link from "next/link";
 
 interface DimensionalMaterial {
     material: string;
@@ -38,7 +39,11 @@ interface Props {
 }
 
 const ProjectsListCont = styled.div`
-    margin: 120px 0;
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     .projects {
         width: 60%;
         margin: 0 auto;
@@ -52,12 +57,38 @@ const ProjectsListCont = styled.div`
             color: ${colors.neutral1000};
         }
 
+        &__subheading {
+            ${paragraphMedium}
+            text-align: center;
+        }
+
+        &__description {
+            ${paragraphMedium}
+            text-align: center;
+        }
+
+        &__link {
+            text-decoration: underline;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
         &__container {
             width: 40%;
             display: flex;
             flex-direction: column;
+            align-items: center;
             flex-wrap: wrap;
             gap: 20px;
+        }
+
+        &__text-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         &__total {
@@ -68,26 +99,46 @@ const ProjectsListCont = styled.div`
 `;
 
 const ProjectsList = ({ email, projects }: Props) => {
+    let totalCost = 0;
     const projectTotals = projects.map((project) => {
         return project.project.totalPrice;
     });
-    const totalCost = projectTotals.reduce((accumulator, currentValue) => {
-        return accumulator + currentValue;
-    });
+    if (projects.length > 0) {
+        totalCost = projectTotals.reduce((accumulator, currentValue) => {
+            return accumulator + currentValue;
+        });
+    }
 
     return (
         <ProjectsListCont>
             <Modal className="projects">
                 <h1 className="projects__heading">Projects</h1>
                 <div className="projects__container">
-                    {projects.map((project) => {
-                        return (
-                            <ProjectCard
-                                key={project.project._id}
-                                projectProps={project}
-                            ></ProjectCard>
-                        );
-                    })}
+                    {projects.length > 0 &&
+                        projects.map((project) => {
+                            return (
+                                <ProjectCard
+                                    key={project.project._id}
+                                    projectProps={project}
+                                ></ProjectCard>
+                            );
+                        })}
+                    {projects.length === 0 && (
+                        <div className="projects__text-container">
+                            <p className="projects__subheading">
+                                No Saved Projects
+                            </p>
+                            <p className="projects__description">
+                                Create a{" "}
+                                <Link
+                                    href="/projects/new-project"
+                                    className="projects__link"
+                                >
+                                    New Project
+                                </Link>{" "}
+                            </p>
+                        </div>
+                    )}
                 </div>
                 <p className="projects__total">
                     Total Cost of All Projects - ${totalCost.toFixed(2)}

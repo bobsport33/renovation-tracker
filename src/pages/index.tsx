@@ -1,17 +1,8 @@
 import React, { Fragment } from "react";
 import Head from "next/head";
-import styled from "styled-components";
-import { Inter } from "next/font/google";
-import Link from "next/link";
 
-import Modal from "@/subComponents/Modal";
-
-const inter = Inter({ subsets: ["latin"] });
-
-const HomeCont = styled.main`
-    height: 1000px;
-    padding: 40px 0;
-`;
+import Hero from "@/components/hero/Index";
+import InfoCards from "@/components/infoCards/Index";
 
 export default function Home() {
     return (
@@ -28,7 +19,8 @@ export default function Home() {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <HomeCont />
+            <Hero />
+            <InfoCards />
         </>
     );
 }
