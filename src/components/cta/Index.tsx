@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 import { colors } from "@/styles/variables";
+import Button from "@/subComponents/Button";
 
 const CTACont = styled.section`
     margin: 80px auto;
@@ -15,10 +17,15 @@ const CTACont = styled.section`
 `;
 
 const CTA = () => {
+    const router = useRouter();
+
+    const clickHandler = () => {
+        router.push("/auth?state=signin");
+    };
     return (
         <CTACont>
             <h2 className="cta__heading">Sign Up</h2>
-            {/* Add button, like the look of iconButton here, but need to get an svg for signup */}
+            <Button text="Sign Up" onClick={clickHandler} color="blue" />
         </CTACont>
     );
 };

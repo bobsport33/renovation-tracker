@@ -74,9 +74,10 @@ const InfoCards = () => {
                 </p>
             </div>
             <div className="info__card-container">
-                {cardInfo.map((info) => {
+                {cardInfo.map((info, i) => {
                     return (
                         <Card
+                            key={i}
                             imageUrl={info.imageUrl}
                             imageAlt={info.imageAlt}
                             title={info.title}
