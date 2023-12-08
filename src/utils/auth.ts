@@ -31,7 +31,7 @@ export async function createUser(
     firstName: string,
     lastName: string
 ) {
-    const response = await axios.post("/api/auth/signup", {
+    const response = await axios.post(apiUrl("auth/signup"), {
         body: JSON.stringify({
             email,
             password,
@@ -69,7 +69,7 @@ export async function createProject(
     // Add checks to make sure there is data and data is correct types
 
     // send data to custom api call to add to db
-    const response = await axios.post("/api/auth/createProject", {
+    const response = await axios.post(apiUrl("auth/createProject"), {
         body: JSON.stringify({
             projectName,
             DimensionalMaterial,
@@ -91,7 +91,7 @@ export async function createProject(
 }
 
 export async function updateUser(email: string, projectId: ObjectId) {
-    const response = await axios.put("/api/auth/updateUserProjects", {
+    const response = await axios.put(apiUrl("auth/updateUserProjects"), {
         body: JSON.stringify({
             email,
             projectId,
@@ -138,7 +138,7 @@ export async function updateProject(
     nonDimensionalMaterial: NonDimensionalMaterial[],
     totalPrice: number
 ) {
-    const response = await axios.post("/api/auth/updateProject", {
+    const response = await axios.post(apiUrl("auth/updateProject"), {
         body: JSON.stringify({
             projectId,
             projectName,
@@ -161,7 +161,7 @@ export async function updateProject(
 }
 
 export async function deleteProject(email: string, projectId: string) {
-    const response = await axios.post("/api/auth/deleteProject", {
+    const response = await axios.post(apiUrl("auth/deleteProject"), {
         body: JSON.stringify({
             projectId,
             email,
