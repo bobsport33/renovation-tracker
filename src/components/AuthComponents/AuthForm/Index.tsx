@@ -7,7 +7,6 @@ import { colors } from "@/styles/variables";
 import Input from "@/subComponents/Input";
 import { createUser } from "@/utils/auth";
 import Button from "@/subComponents/Button";
-import IconButton from "@/subComponents/IconButton";
 
 interface props {
     state: string;

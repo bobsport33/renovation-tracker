@@ -6,6 +6,7 @@ import axios from "axios";
 import ProjectsList from "@/components/projectsList/Index";
 import { getProjectById } from "@/utils/auth";
 import { Project } from "@/types/Index";
+import apiUrl from "@/utils/apiUrl";
 
 interface Props {
     email: string;
@@ -26,17 +27,14 @@ export const getServerSideProps = async (
     const email = session?.user?.email;
 
     if (session) {
-        const response = await axios.post(
-            "http://localhost:3000/api/auth/getProjects",
-            {
-                body: JSON.stringify({
-                    email,
-                }),
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            }
-        );
+        const response = await axios.post(apiUrl("auth/getProjects"), {
+            body: JSON.stringify({
+                email,
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
         const projects = response.data.projects;
 
         const fullProjects = await Promise.all(

@@ -2,6 +2,7 @@ import { hash } from "bcryptjs";
 import axios from "axios";
 import { signIn } from "next-auth/react";
 import { ObjectId } from "mongodb";
+import apiUrl from "./apiUrl";
 
 interface DimensionalMaterial {
     material: string;
@@ -111,17 +112,14 @@ export async function updateUser(email: string, projectId: ObjectId) {
 }
 
 export async function getProjectById(id: string) {
-    const response = await axios.put(
-        "http://localhost:3000/api/auth/getProjectById",
-        {
-            body: JSON.stringify({
-                id,
-            }),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }
-    );
+    const response = await axios.put(apiUrl("auth/getProjectById"), {
+        body: JSON.stringify({
+            id,
+        }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
 
     const data = response.data;
 
@@ -163,8 +161,6 @@ export async function updateProject(
 }
 
 export async function deleteProject(email: string, projectId: string) {
-    console.log(projectId);
-    console.log(email);
     const response = await axios.post("/api/auth/deleteProject", {
         body: JSON.stringify({
             projectId,

@@ -249,7 +249,7 @@ const ProjectForm = ({ email, project }: Props) => {
         setIsSaving(true);
         let name;
 
-        if (projectName.current && email) {
+        if (!project && projectName.current && email) {
             // new submission
             name = projectName.current.value;
 
