@@ -17,8 +17,6 @@ async function handler(req: Request, res: Response) {
         { $push: { projects: projectId } }
     );
 
-    // console.log(result.insertedId);
-
     res.status(201).json({
         message: "updated user",
     });

@@ -1,8 +1,9 @@
-const BACKEND_ENV = process.env.BACKEND_ENV;
+const BACKEND_ENV_VAR = process.env.BACKEND_ENV;
 
 const apiUrl = (path: string) => {
-
-    if (BACKEND_ENV === "production") {
+    console.log(path);
+    if (BACKEND_ENV_VAR === "production") {
+        console.log("production");
         return `https://renovation-estimator.netlify.app/api/${path}`;
     } else {
         return `http://localhost:3000/api/${path}`;
