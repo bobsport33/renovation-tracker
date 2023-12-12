@@ -1,4 +1,4 @@
-const BACKEND_ENV: string | undefined = process.env.BACKEND_ENV;
+const BACKEND_ENV: string | undefined = process.env.NEXT_PUBLIC_BACKEND_ENV;
 
 const apiUrl = (path: string): string => {
     if (BACKEND_ENV === "production") {
